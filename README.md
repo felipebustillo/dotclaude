@@ -14,6 +14,43 @@ A collection of specialized agent definitions for [Claude Code](https://docs.ant
 | Management | [Code Reviewer](management/code-reviewer.md) | Exhaustive code reviews with actionable, prioritized feedback |
 | Management | [Technical Writer](management/technical-writer.md) | Documentation, ADRs, runbooks, READMEs, guides |
 
+## Status Line
+
+A Catppuccin Mocha-themed status line for Claude Code that shows at-a-glance session info:
+
+```
+felipebustillo/homelab  main │ +156 -23 │ ↓245.8k ↑18.4k │ ████░░░░░░ 42%
+```
+
+| Module | Description |
+|--------|-------------|
+| Directory + branch | Current project and git branch (`*` if dirty) |
+| Lines changed | `+added` / `-removed` in the session |
+| Tokens | `↓input` / `↑output` tokens consumed |
+| Context bar | Visual context window usage (green → yellow → red) |
+
+### Setup
+
+1. Copy the script:
+
+```bash
+cp statusline/statusline-command.sh ~/.claude/statusline-command.sh
+chmod +x ~/.claude/statusline-command.sh
+```
+
+2. Add to `~/.claude/settings.json`:
+
+```json
+{
+    "statusLine": {
+        "type": "command",
+        "command": "bash $HOME/.claude/statusline-command.sh"
+    }
+}
+```
+
+**Requirements**: `jq`, `git`. No `bc` needed — uses pure bash arithmetic.
+
 ## How to Use
 
 ### 1. Clone the repository
