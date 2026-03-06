@@ -66,10 +66,17 @@ Starting points for creating your own:
 A Catppuccin Mocha-themed status line showing session info:
 
 ```
-hanka/app  main │ +156 -23 │ ↓245.8k ↑18.4k │ ████░░░░░░ 42%
+app  main │ +1400 -2230 │ ↓64k ↑68k │ ██░░░░ 25% │ 5h 43% (2m) 7d 22% (4d0h)
 ```
 
-Segments: directory + git branch, lines changed, token usage (in/out), context window bar with color coding (green < 60%, yellow 60-80%, red > 80%).
+Segments:
+1. **Directory + git branch** — last path component + branch name with dirty indicator
+2. **Lines changed** — green/red additions and deletions
+3. **Token usage** — input (↓) and output (↑) tokens
+4. **Context bar** — 6-char visual bar (green < 60%, yellow 60-80%, red > 80%)
+5. **Claude Max limits** — 5-hour and 7-day usage % with reset countdown (green < 40%, peach 40-60%, yellow 60-80%, red > 80%)
+
+Usage data is fetched from the Anthropic OAuth API and cached for 2 minutes. Requires Claude Max subscription.
 
 ## Key Best Practices
 
