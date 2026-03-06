@@ -66,8 +66,10 @@ Starting points for creating your own:
 A Catppuccin Mocha-themed status line showing session info:
 
 ```
-user/project  main │ +156 -23 │ ↓245.8k ↑18.4k │ ████░░░░░░ 42%
+hanka/app  main │ +156 -23 │ ↓245.8k ↑18.4k │ ████░░░░░░ 42%
 ```
+
+Segments: directory + git branch, lines changed, token usage (in/out), context window bar with color coding (green < 60%, yellow 60-80%, red > 80%).
 
 ## Key Best Practices
 
