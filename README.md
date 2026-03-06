@@ -1,9 +1,6 @@
 # dotclaude
 
 A complete reference for configuring [Claude Code](https://docs.anthropic.com/en/docs/claude-code) — agents, skills, rules, hooks, settings, and memory patterns. Reusable across any project.
-
-> **Note**: This repo is named `dotclaude` but currently hosted as `claude-agents` on GitHub. Rename pending.
-
 ## Guides
 
 Practical references for each Claude Code feature:
