@@ -85,13 +85,16 @@ usage_color() {
     fi
 }
 
-# Fetch Claude Max usage limits (cached for 2 minutes)
+# Fetch Claude Max usage limits (cached 5min, stale after 10min, hidden after 30min)
 CACHE_FILE="/tmp/.claude-usage-cache"
-CACHE_MAX_AGE=120
+CACHE_MAX_AGE=300
+CACHE_STALE_AGE=600
+CACHE_EXPIRED_AGE=1800
 usage_5h=""
 usage_7d=""
 reset_5h=""
 reset_7d=""
+usage_stale=0
 
 fetch_usage() {
     local now
@@ -128,10 +131,17 @@ fetch_usage() {
 
     # Read from cache (fresh or stale fallback)
     if [ -f "$CACHE_FILE" ]; then
-        usage_5h=$(jq -r '.five_hour.utilization // empty' "$CACHE_FILE" 2>/dev/null)
-        usage_7d=$(jq -r '.seven_day.utilization // empty' "$CACHE_FILE" 2>/dev/null)
-        reset_5h=$(jq -r '.five_hour.resets_at // empty' "$CACHE_FILE" 2>/dev/null)
-        reset_7d=$(jq -r '.seven_day.resets_at // empty' "$CACHE_FILE" 2>/dev/null)
+        local cache_current_age
+        cache_current_age=$(( $(date +%s) - $(stat -c %Y "$CACHE_FILE" 2>/dev/null || echo 0) ))
+        if [ "$cache_current_age" -lt "$CACHE_EXPIRED_AGE" ]; then
+            usage_5h=$(jq -r '.five_hour.utilization // empty' "$CACHE_FILE" 2>/dev/null)
+            usage_7d=$(jq -r '.seven_day.utilization // empty' "$CACHE_FILE" 2>/dev/null)
+            reset_5h=$(jq -r '.five_hour.resets_at // empty' "$CACHE_FILE" 2>/dev/null)
+            reset_7d=$(jq -r '.seven_day.resets_at // empty' "$CACHE_FILE" 2>/dev/null)
+            if [ "$cache_current_age" -ge "$CACHE_STALE_AGE" ]; then
+                usage_stale=1
+            fi
+        fi
     fi
 }
 
@@ -211,11 +221,15 @@ if [ -n "$usage_5h" ] && [ -n "$usage_7d" ]; then
     color_7d=$(usage_color "$local_7d_int")
     reset_5h_str=$(fmt_reset "$reset_5h")
     reset_7d_str=$(fmt_reset_days "$reset_7d")
-    limit_part="${DIM}5h${RST} ${color_5h}${local_5h_int}%${RST}"
+    stale_prefix=""
+    if [ "$usage_stale" -eq 1 ]; then
+        stale_prefix="${DIM}~${RST}"
+    fi
+    limit_part="${DIM}5h${RST} ${stale_prefix}${color_5h}${local_5h_int}%${RST}"
     if [ -n "$reset_5h_str" ]; then
         limit_part+=" ${DIM}(${reset_5h_str})${RST}"
     fi
-    limit_part+=" ${DIM}7d${RST} ${color_7d}${local_7d_int}%${RST}"
+    limit_part+=" ${DIM}7d${RST} ${stale_prefix}${color_7d}${local_7d_int}%${RST}"
     if [ -n "$reset_7d_str" ]; then
         limit_part+=" ${DIM}(${reset_7d_str})${RST}"
     fi
