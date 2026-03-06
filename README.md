@@ -1,115 +1,86 @@
-# Claude Agents
+# dotclaude
 
-A collection of specialized agent definitions for [Claude Code](https://docs.anthropic.com/en/docs/claude-code), reusable across any project. Each agent brings deep domain expertise and adapts to your project's stack through context injection.
+A complete reference for configuring [Claude Code](https://docs.anthropic.com/en/docs/claude-code) — agents, skills, rules, hooks, settings, and memory patterns. Reusable across any project.
 
-## Available Agents
+> **Note**: This repo is named `dotclaude` but currently hosted as `claude-agents` on GitHub. Rename pending.
 
-| Domain | Agent | Description |
-|--------|-------|-------------|
-| Engineering | [Senior Developer](engineering/senior-developer.md) | Code architecture, design patterns, refactoring, mentoring |
-| Engineering | [DevOps Engineer](engineering/devops-engineer.md) | CI/CD, containers, deployment, pipelines, observability |
-| Security | [Security Auditor](security/security-auditor.md) | Vulnerability analysis, OWASP, security review |
-| Security | [QA Engineer](security/qa-engineer.md) | Test strategy, coverage, edge cases, test automation |
-| Infrastructure | [SysAdmin](infrastructure/sysadmin.md) | Server administration, networking, monitoring, hardening |
-| Management | [Code Reviewer](management/code-reviewer.md) | Exhaustive code reviews with actionable, prioritized feedback |
-| Management | [Technical Writer](management/technical-writer.md) | Documentation, ADRs, runbooks, READMEs, guides |
+## Guides
+
+Practical references for each Claude Code feature:
+
+| Guide | What it covers |
+|-------|---------------|
+| [Agents](guides/agents.md) | Custom subagents with frontmatter, tools, skills, memory |
+| [Skills](guides/skills.md) | Reusable knowledge/workflow definitions |
+| [Rules](guides/rules.md) | Contextual instructions that load automatically |
+| [Commands](guides/commands.md) | Custom slash commands |
+| [Hooks](guides/hooks.md) | Lifecycle event handlers (auto-format, notifications) |
+| [Settings](guides/settings.md) | Configuration hierarchy, permissions, environment |
+| [Memory](guides/memory.md) | CLAUDE.md loading, auto-memory, monorepo patterns |
+
+## Agents
+
+Reusable, technology-agnostic agents in `.claude/agents/`:
+
+| Agent | Model | Domain |
+|-------|-------|--------|
+| [Senior Developer](.claude/agents/senior-developer.md) | inherit | Architecture, design patterns, refactoring |
+| [DevOps Engineer](.claude/agents/devops-engineer.md) | inherit | CI/CD, containers, deployment, observability |
+| [Security Auditor](.claude/agents/security-auditor.md) | inherit | Vulnerability analysis, OWASP, security review |
+| [QA Engineer](.claude/agents/qa-engineer.md) | inherit | Test strategy, coverage, automation |
+| [SysAdmin](.claude/agents/sysadmin.md) | inherit | Server administration, networking, monitoring |
+| [Code Reviewer](.claude/agents/code-reviewer.md) | inherit | Code reviews with actionable, prioritized feedback |
+| [Technical Writer](.claude/agents/technical-writer.md) | inherit | Documentation, ADRs, runbooks, guides |
+
+### Usage
+
+Copy agents to your project:
+
+```bash
+# Copy specific agents
+cp dotclaude/.claude/agents/code-reviewer.md your-project/.claude/agents/
+
+# Or copy all
+cp -r dotclaude/.claude/agents/ your-project/.claude/agents/
+```
+
+Then customize the frontmatter (`model`, `tools`, `skills`) for your project.
+
+## Templates
+
+Starting points for creating your own:
+
+| Template | For |
+|----------|-----|
+| [Agent Template](templates/agent-template.md) | New agents |
+| [Skill Template](templates/skill-template.md) | New skills |
+| [Rule Template](templates/rule-template.md) | New rules |
+| [Command Template](templates/command-template.md) | New slash commands |
+
+## Examples
+
+| Example | Description |
+|---------|-------------|
+| [settings.json](examples/settings.json) | Recommended settings with safe permissions |
+| [statusline-command.sh](examples/statusline-command.sh) | Catppuccin Mocha status line |
 
 ## Status Line
 
-A Catppuccin Mocha-themed status line for Claude Code that shows at-a-glance session info:
+A Catppuccin Mocha-themed status line showing session info:
 
 ```
-felipebustillo/homelab  main │ +156 -23 │ ↓245.8k ↑18.4k │ ████░░░░░░ 42%
+user/project  main │ +156 -23 │ ↓245.8k ↑18.4k │ ████░░░░░░ 42%
 ```
 
-| Module | Description |
-|--------|-------------|
-| Directory + branch | Current project and git branch (`*` if dirty) |
-| Lines changed | `+added` / `-removed` in the session |
-| Tokens | `↓input` / `↑output` tokens consumed |
-| Context bar | Visual context window usage (green → yellow → red) |
+## Key Best Practices
 
-### Setup
-
-1. Copy the script:
-
-```bash
-cp statusline/statusline-command.sh ~/.claude/statusline-command.sh
-chmod +x ~/.claude/statusline-command.sh
-```
-
-2. Add to `~/.claude/settings.json`:
-
-```json
-{
-    "statusLine": {
-        "type": "command",
-        "command": "bash $HOME/.claude/statusline-command.sh"
-    }
-}
-```
-
-**Requirements**: `jq`, `git`. No `bc` needed — uses pure bash arithmetic.
-
-## How to Use
-
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/felipebustillo/claude-agents.git ~/repos/claude-agents
-```
-
-### 2. Add to your project's CLAUDE.md
-
-Add this section to the `CLAUDE.md` of any project where you want to use the agents:
-
-```markdown
-## Agents
-
-When asked to act as a specific role, read and follow the full agent definition file before responding:
-
-- "Act as Senior Developer" → ~/repos/claude-agents/engineering/senior-developer.md
-- "Act as Security Auditor" → ~/repos/claude-agents/security/security-auditor.md
-- "Act as Code Reviewer" → ~/repos/claude-agents/management/code-reviewer.md
-- "Act as DevOps Engineer" → ~/repos/claude-agents/engineering/devops-engineer.md
-- "Act as QA Engineer" → ~/repos/claude-agents/security/qa-engineer.md
-- "Act as SysAdmin" → ~/repos/claude-agents/infrastructure/sysadmin.md
-- "Act as Technical Writer" → ~/repos/claude-agents/management/technical-writer.md
-
-After reading the agent file, also read any `agent-context.md` in this project root for additional context. Always adapt to this project's stack and conventions as defined in this CLAUDE.md.
-```
-
-### 3. Use in conversation
-
-Simply ask Claude to adopt a role:
-
-```
-Act as Security Auditor and review this authentication module.
-Act as Code Reviewer and review my last 3 commits.
-Act as Technical Writer and create an ADR for this database migration.
-```
-
-## Context Injection
-
-Agents adapt to your project through three layers of context, from general to specific:
-
-1. **The agent itself** — defines the role, rules, and generic workflow
-2. **Your project's CLAUDE.md** — stack, conventions, preferences (already exists in your project)
-3. **`agent-context.md` (optional)** — extra context your project wants to provide to agents (e.g., "Database is PostgreSQL 16", "We use Clean Architecture")
-
-No variables or templating needed. The agent simply reads available files and adapts.
-
-## Creating New Agents
-
-Use [`agent-template.md`](agent-template.md) as a starting point. Each agent file follows a standard structure:
-
-- **Identity** — who the agent is
-- **Core Rules** — unbreakable constraints
-- **Workflow** — step-by-step process for tasks
-- **Quality Criteria** — measurable success criteria
-- **Context Injection** — how to obtain project context
-
-See the template for details and examples.
+1. **CLAUDE.md < 200 lines** — extract details to `.claude/rules/`
+2. **`CLAUDE_AUTOCOMPACT_PCT_OVERRIDE=80`** — prevent context exhaustion
+3. **Granular permissions** — don't `allow` destructive commands
+4. **Dynamic context injection** — use `` !`command` `` in agents/skills for live data
+5. **Never store secrets** in CLAUDE.md or memory files
+6. **One domain per agent** — avoid overlap, keep them focused
+7. **Don't duplicate hooks** between `settings.json` and `settings.local.json`
 
 ## License
 

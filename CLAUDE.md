@@ -1,30 +1,25 @@
-# Claude Agents Repository
+# dotclaude Repository
 
-This repository contains specialized agent definitions for Claude Code.
+This repository contains reusable Claude Code configuration: agents, guides, templates, and examples.
 
 ## Structure
 
-- `engineering/` — software development agents
-- `security/` — security and quality assurance agents
-- `infrastructure/` — system administration agents
-- `management/` — review and documentation agents
-- `agent-template.md` — standard template for new agents
+- `.claude/agents/` — reusable agent definitions
+- `guides/` — best practice documentation for each feature
+- `templates/` — starting points for new agents, skills, rules, commands
+- `examples/` — example settings and statusline
 
-## Writing Agents
+## Writing Content
 
-All agent files follow the structure defined in `agent-template.md`. When creating or modifying agents:
-
-- Write all agent content in English
-- Keep agents technology-agnostic — they adapt to the project's stack via context injection
-- Every agent must have: Identity, Core Rules, Workflow, Quality Criteria, Context Injection
-- Core Rules must always include "read the project's CLAUDE.md first"
-- Workflows should be concrete and actionable, not vague
-- Quality Criteria must be measurable, not subjective
-- Avoid overlap between agents — each has a distinct domain
+- All content in English
+- Keep agents technology-agnostic — they adapt via context injection
+- Every agent: Identity, Core Rules, Workflow, Quality Criteria
+- Guides should be practical references, not tutorials
+- Templates should be minimal and ready to customize
+- No project-specific details — that comes from the user's CLAUDE.md
 
 ## Conventions
 
-- File names use kebab-case: `senior-developer.md`
-- One agent per file
-- Agents don't reference other agents (they're independent)
-- No project-specific details in agent files — that comes from context injection
+- File names: kebab-case (`senior-developer.md`)
+- One agent per file, one guide per feature
+- Agents don't reference other agents (independent)

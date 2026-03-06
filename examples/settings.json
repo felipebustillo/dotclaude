@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "plansDirectory": "/home/user/.claude/plans",
+  "env": {
+    "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "80"
+  },
+  "attribution": {
+    "pr": ""
+  },
+  "permissions": {
+    "allow": [
+      "Bash(git *)",
+      "Bash(npm *)",
+      "Bash(pnpm *)",
+      "Bash(npx *)",
+      "Bash(node *)",
+      "Bash(python *)",
+      "Bash(python3 *)",
+      "Bash(pytest *)",
+      "Bash(ruff *)",
+      "Bash(mypy *)",
+      "Bash(uv *)",
+      "Bash(docker ps *)",
+      "Bash(docker logs *)",
+      "Bash(docker compose *)",
+      "Bash(docker inspect *)",
+      "Bash(docker exec *)",
+      "Bash(docker build *)",
+      "Bash(docker images *)",
+      "Bash(ssh *)",
+      "Bash(curl *)",
+      "Bash(ls *)",
+      "Bash(cat *)",
+      "Bash(find *)",
+      "Bash(grep *)",
+      "Bash(wc *)",
+      "Bash(head *)",
+      "Bash(tail *)",
+      "Bash(diff *)",
+      "Bash(jq *)",
+      "Bash(ps *)",
+      "Bash(echo *)",
+      "Bash(mkdir *)",
+      "Bash(cp *)",
+      "Bash(mv *)",
+      "Bash(* --version)",
+      "Bash(* --help)",
+      "WebSearch"
+    ],
+    "deny": [
+      "Bash(rm -rf /)",
+      "Bash(rm -rf /*)",
+      "Bash(rm -rf ~)",
+      "Bash(rm -rf ~/*)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "FILE=$(cat | jq -r '.tool_input.file_path // empty'); [ -z \"$FILE\" ] && exit 0; case \"$FILE\" in *.py) cd /path/to/project && ruff check --fix \"$FILE\" && ruff format \"$FILE\";; *.ts|*.tsx) cd /path/to/project && npx eslint --fix \"$FILE\" && npx prettier --write \"$FILE\";; esac"
+          }
+        ]
+      }
+    ]
+  }
+}
