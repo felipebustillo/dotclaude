@@ -1,1 +1,25 @@
-{}
+{
+  "sources": {
+    "official-docs": {
+      "hash": "59f088f19de9d85549440e92a552019f40d311b1ecf0a6fb887974683d3d72ed",
+      "last_checked": "2026-03-09T08:20:36.757687+00:00"
+    },
+    "releases": {
+      "hash": "6aee092231c67eda10fd5b09870e8a53b8c058b8bb300a219392906f802124b9",
+      "last_checked": "2026-03-09T08:20:37.122688+00:00"
+    },
+    "changelog": {
+      "hash": "64cfa0f0836a4e2a2d8c16e7bb8da3810d10362a5d2d0ce09505b80fa540d450",
+      "last_checked": "2026-03-09T08:20:37.271978+00:00"
+    },
+    "skills-repo": {
+      "hash": "09eb98b16dd8ca03144f9f8d7f1e1d3c7c7868a71a4a6a446d085370a8174b7a",
+      "last_checked": "2026-03-09T08:20:37.563589+00:00"
+    },
+    "awesome-list": {
+      "hash": "ebd1a62b8954b74b6c627db9e9bde6e438656a51c0b37a89e8e25bc51cb78ed7",
+      "last_checked": "2026-03-09T08:20:37.728475+00:00"
+    }
+  },
+  "last_run": "2026-03-09T08:20:37.728484+00:00"
+}
