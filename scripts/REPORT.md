@@ -1,4 +1,4 @@
-# Update Monitor Report — 2026-03-23
+# Update Monitor Report — 2026-03-30
 
 ## official-docs (Claude Code Official Docs Index)
 **Estado:** Cambios detectados
@@ -20,7 +20,7 @@
 > - [Checkpointing](https://code.claude.com/docs/en/checkpointing.md): Track, rewind, and summarize Claude's edits and conversation to manage session state.
 > - [Use Claude Code with Chrome (beta)](https://code.claude.com/docs/en/chrome.md): Connect Claude Code to your Chrome browser to test web apps, debug with console logs, automate form filling, and extract data from web pages.
 > - [Claude Code on the web](https://code.claude.com/docs/en/claude-code-on-the-web.md): Run Claude Code tasks asynchronously on secure cloud infrastructure
-> ... (56 more lines)
+> ... (61 more lines)
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
@@ -44,26 +44,70 @@
 
 **Resumen:**
 > Release content updated:
-> ### v2.1.81
+> ### v2.1.87
 > ## What's changed
 > 
-> - Added `--bare` flag for scripted `-p` calls — skips hooks, LSP, plugin sync, and skill directory walks; requires `ANTHROPIC_API_KEY` or an `apiKeyHelper` via `--settings` (OAuth and keychain auth disabled); auto-memory fully disabled
-> - Added `--channels` permission relay — channel servers that declare the permission capability can forward tool approval prompts to your phone
-> - Fixed multiple concurrent Claude Code sessions requiring repeated re-authentication when one session
+> - Fixed messages in Cowork Dispatch not getting delivered
 > 
-> ### v2.1.80
+> 
+> ### v2.1.86
 > ## What's changed
 > 
-> - Added `rate_limits` field to statusline scripts for displaying Claude.ai rate limit usage (5-hour and 7-day windows with `used_percentage` and `resets_at`)
-> - Added `source: 'settings'` plugin marketplace source — declare plugin entries inline in settings.json
-> - Added CLI tool usage detection to plugin tips, in addition to file pattern matching
-> - Added `effort` frontmatter support for skills and slash commands to override the model effort level when invoked
-> - Added `--channel
+> - Added `X-Claude-Code-Session-Id` header to API requests so proxies can aggregate requests by session without parsing the body
+> - Added `.jj` and `.sl` to VCS directory exclusion lists so Grep and file autocomplete don't descend into Jujutsu or Sapling metadata
+> - Fixed `--resume` failing with "tool_use ids were found without tool_result blocks" on sessions created before v2.1.85
+> - Fixed Write/Edit/Read failing on files outside the project root (e.g., `~/.claude/CLAUDE.md`) whe
 > 
-> ### v2.1.79
+> ### v2.1.85
 > ## What's changed
 > 
-> - Added `--console` flag to `claude auth login` for Anthropic Console (API billing) authentication
+> - Added `CLAUDE_CODE_MCP_SERVER_NAME` and `CLAUDE_CODE_MCP_SERVER_URL` environment variables to MCP `headersHelper` scripts, allowing one helper to serve multiple servers
+> - Added conditional `if` field for hooks using permission rule syntax (e.g., `Bash(git *)`) to filter when they run, reducing process spawning overhead
+> - Added timestamp markers in transcripts when scheduled tasks (`/loop`, `CronCreate`) fire
+
+**Ficheros potencialmente afectados:**
+- `examples/settings.json`
+- `guides/agents.md`
+- `guides/hooks.md`
+- `guides/rules.md`
+- `guides/settings.md`
+- `templates/rule-template.md`
+
+---
+
+## changelog (Claude Code Changelog)
+**Estado:** Cambios detectados
+**URL:** https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md
+
+**Resumen:**
+> Changelog updated:
+> ## 2.1.87
+> 
+> - Fixed messages in Cowork Dispatch not getting delivered
+
+---
+
+## awesome-list (Awesome Claude Code)
+**Estado:** Cambios detectados
+**URL:** https://raw.githubusercontent.com/hesreallyhim/awesome-claude-code/main/README.md
+
+**Resumen:**
+> <!-- GENERATED FILE: do not edit directly -->
+> <h3 align="center">Pick Your Style:</h3>
+> <p align="center">
+> <a href="./"><img src="assets/badge-style-awesome.svg" alt="Awesome" height="28" style="border: 2px solid #cc3366; border-radius: 4px;"></a>
+> <a href="README_ALTERNATIVES/README_EXTRA.md"><img src="assets/badge-style-extra.svg" alt="Extra" height="28"></a>
+> <a href="README_ALTERNATIVES/README_CLASSIC.md"><img src="assets/badge-style-classic.svg" alt="Classic" height="28"></a>
+> <a href="README_ALTERNATIVES/README_FLAT_ALL_AZ.md"><img src="assets/badge-style-flat.svg" alt="Flat" height="28"></a>
+> </p>
+> 
+> <p align="center">
+>   <picture>
+>     <img src="assets/awesome-claude-code-social-clawd-leo.png" alt="Awesome Claude Code" width="600">
+>   </picture>
+> </p>
+> 
+> ... (390 more lines)
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
@@ -77,42 +121,6 @@
 - `templates/agent-template.md`
 - `templates/command-template.md`
 - `templates/rule-template.md`
-- `templates/skill-template.md`
-
----
-
-## changelog (Claude Code Changelog)
-**Estado:** Cambios detectados
-**URL:** https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md
-
-**Resumen:**
-> Changelog updated:
-> ## 2.1.81
-> 
-> - Added `--bare` flag for scripted `-p` calls — skips hooks, LSP, plugin sync, and skill directory walks; requires `ANTHROPIC_API_KEY` or an `apiKeyHelper` via `--settings` (OAuth and keychain auth disabled); auto-memory fully disabled
-> - Added `--channels` permission relay — channel servers that declare the permission capability can forward tool approval prompts to your phone
-> - Fixed multiple concurrent Claude Code sessions requiring repeated re-authentication when one session refreshes its OAuth token
-> - Fixed voice mode silently swallowing retry failures and showing a misleading "check your network" message instead of the actual error
-> - Fixed voice mode audio not recovering when the server silently drops the WebSocket connection
-> - Fixed `CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS` not suppressing the structured-outputs beta header, causing 400 errors on proxy gateways forwarding to Vertex/Bedrock
-> - Fixed `--channels` bypass for Team/Enterprise orgs with no other managed settings configured
-> - Fixed a crash on Node.js 18
-> - Fixed unnecessary permission prompts for Bash commands containing dashes in strings
-> - Fixed plugin hooks blocking prompt submission when the plugin directory is deleted mid-session
-> - Fixed a race condition where background agent task output could hang indefinitely when the task completed between polling intervals
-> - Resuming a session that was in a worktree now switches back to that worktree
-> - Fixed `/btw` not including pasted text when used during an active response
-
-**Ficheros potencialmente afectados:**
-- `examples/settings.json`
-- `guides/agents.md`
-- `guides/commands.md`
-- `guides/hooks.md`
-- `guides/memory.md`
-- `guides/settings.md`
-- `guides/skills.md`
-- `templates/agent-template.md`
-- `templates/command-template.md`
 - `templates/skill-template.md`
 
 ---
