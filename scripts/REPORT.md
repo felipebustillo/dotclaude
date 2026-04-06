@@ -1,4 +1,4 @@
-# Update Monitor Report — 2026-03-30
+# Update Monitor Report — 2026-04-06
 
 ## official-docs (Claude Code Official Docs Index)
 **Estado:** Cambios detectados
@@ -20,7 +20,7 @@
 > - [Checkpointing](https://code.claude.com/docs/en/checkpointing.md): Track, rewind, and summarize Claude's edits and conversation to manage session state.
 > - [Use Claude Code with Chrome (beta)](https://code.claude.com/docs/en/chrome.md): Connect Claude Code to your Chrome browser to test web apps, debug with console logs, automate form filling, and extract data from web pages.
 > - [Claude Code on the web](https://code.claude.com/docs/en/claude-code-on-the-web.md): Run Claude Code tasks asynchronously on secure cloud infrastructure
-> ... (61 more lines)
+> ... (69 more lines)
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
@@ -44,34 +44,37 @@
 
 **Resumen:**
 > Release content updated:
-> ### v2.1.87
+> ### v2.1.92
 > ## What's changed
 > 
-> - Fixed messages in Cowork Dispatch not getting delivered
+> - Added `forceRemoteSettingsRefresh` policy setting: when set, the CLI blocks startup until remote managed settings are freshly fetched, and exits if the fetch fails (fail-closed)
+> - Added interactive Bedrock setup wizard accessible from the login screen when selecting "3rd-party platform" — guides you through AWS authentication, region configuration, credential verification, and model pinning
+> - Added per-model and cache-hit breakdown to `/cost` for subscription users
+> - `/relea
 > 
-> 
-> ### v2.1.86
+> ### v2.1.91
 > ## What's changed
 > 
-> - Added `X-Claude-Code-Session-Id` header to API requests so proxies can aggregate requests by session without parsing the body
-> - Added `.jj` and `.sl` to VCS directory exclusion lists so Grep and file autocomplete don't descend into Jujutsu or Sapling metadata
-> - Fixed `--resume` failing with "tool_use ids were found without tool_result blocks" on sessions created before v2.1.85
-> - Fixed Write/Edit/Read failing on files outside the project root (e.g., `~/.claude/CLAUDE.md`) whe
+> - Added MCP tool result persistence override via `_meta["anthropic/maxResultSizeChars"]` annotation (up to 500K), allowing larger results like DB schemas to pass through without truncation
+> - Added `disableSkillShellExecution` setting to disable inline shell execution in skills, custom slash commands, and plugin commands
+> - Added support for multi-line prompts in `claude-cli://open?q=` deep links (encoded newlines `%0A` no longer rejected)
+> - Plugins can now ship executables unde
 > 
-> ### v2.1.85
+> ### v2.1.90
 > ## What's changed
 > 
-> - Added `CLAUDE_CODE_MCP_SERVER_NAME` and `CLAUDE_CODE_MCP_SERVER_URL` environment variables to MCP `headersHelper` scripts, allowing one helper to serve multiple servers
-> - Added conditional `if` field for hooks using permission rule syntax (e.g., `Bash(git *)`) to filter when they run, reducing process spawning overhead
-> - Added timestamp markers in transcripts when scheduled tasks (`/loop`, `CronCreate`) fire
+> - Added `/powerup` — interactive lessons teaching Claude Code features with animated demos
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
 - `guides/agents.md`
+- `guides/commands.md`
 - `guides/hooks.md`
-- `guides/rules.md`
 - `guides/settings.md`
-- `templates/rule-template.md`
+- `guides/skills.md`
+- `templates/agent-template.md`
+- `templates/command-template.md`
+- `templates/skill-template.md`
 
 ---
 
@@ -81,9 +84,30 @@
 
 **Resumen:**
 > Changelog updated:
-> ## 2.1.87
+> ## 2.1.92
 > 
-> - Fixed messages in Cowork Dispatch not getting delivered
+> - Added `forceRemoteSettingsRefresh` policy setting: when set, the CLI blocks startup until remote managed settings are freshly fetched, and exits if the fetch fails (fail-closed)
+> - Added interactive Bedrock setup wizard accessible from the login screen when selecting "3rd-party platform" — guides you through AWS authentication, region configuration, credential verification, and model pinning
+> - Added per-model and cache-hit breakdown to `/cost` for subscription users
+> - `/release-notes` is now an interactive version picker
+> - Remote Control session names now use your hostname as the default prefix (e.g. `myhost-graceful-unicorn`), overridable with `--remote-control-session-name-prefix`
+> - Pro users now see a footer hint when returning to a session after the prompt cache has expired, showing roughly how many tokens the next turn will send uncached
+> - Fixed subagent spawning permanently failing with "Could not determine pane count" after tmux windows are killed or renumbered during a long-running session
+> - Fixed prompt-type Stop hooks incorrectly failing when the small fast model returns `ok:false`, and restored `preventContinuation:true` semantics for non-Stop prompt-type hooks
+> - Fixed tool input validation failures when streaming emits array/object fields as JSON-encoded strings
+> - Fixed an API 400 error that could occur when extended thinking produced a whitespace-only text block alongside real content
+> - Fixed accidental feedback survey submissions from auto-pilot keypresses and consecutive-prompt digit collisions
+> - Fixed misleading "esc to interrupt" hint appearing alongside "esc to clear" when a text selection exists in fullscreen mode during processing
+> - Fixed Homebrew install update prompts to use the cask's release channel (`claude-code` → stable, `claude-code@latest` → latest)
+
+**Ficheros potencialmente afectados:**
+- `examples/settings.json`
+- `guides/agents.md`
+- `guides/commands.md`
+- `guides/hooks.md`
+- `guides/settings.md`
+- `templates/agent-template.md`
+- `templates/command-template.md`
 
 ---
 
@@ -103,11 +127,11 @@
 > 
 > <p align="center">
 >   <picture>
->     <img src="assets/awesome-claude-code-social-clawd-leo.png" alt="Awesome Claude Code" width="600">
+>     <img src="assets/ACC-social-banner.png" alt="Awesome Claude Code" width="600">
 >   </picture>
 > </p>
 > 
-> ... (390 more lines)
+> ... (395 more lines)
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
