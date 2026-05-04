@@ -1,4 +1,4 @@
-# Update Monitor Report — 2026-04-27
+# Update Monitor Report — 2026-05-04
 
 ## official-docs (Claude Code Official Docs Index)
 **Estado:** Cambios detectados
@@ -20,7 +20,7 @@
 > - [Intercept and control agent behavior with hooks](https://code.claude.com/docs/en/agent-sdk/hooks.md): Intercept and customize agent behavior at key execution points with hooks
 > - [Hosting the Agent SDK](https://code.claude.com/docs/en/agent-sdk/hosting.md): Deploy and host Claude Agent SDK in production environments
 > - [Connect to external tools with MCP](https://code.claude.com/docs/en/agent-sdk/mcp.md): Configure MCP servers to extend your agent with external tools. Covers transport types, tool search for large tool sets, authentication, and error handling.
-> ... (108 more lines)
+> ... (115 more lines)
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
@@ -44,35 +44,34 @@
 
 **Resumen:**
 > Release content updated:
-> ### v2.1.119
+> ### v2.1.126
 > ## What's changed
 > 
-> - `/config` settings (theme, editor mode, verbose, etc.) now persist to `~/.claude/settings.json` and participate in project/local/policy override precedence
-> - Added `prUrlTemplate` setting to point the footer PR badge at a custom code-review URL instead of github.com
-> - Added `CLAUDE_CODE_HIDE_CWD` environment variable to hide the working directory in the startup logo
-> - `--from-pr` now accepts GitLab merge-request, Bitbucket pull-request, and GitHub Enterprise PR URLs
-> - `--pri
+> - The `/model` picker now lists models from your gateway's `/v1/models` endpoint when `ANTHROPIC_BASE_URL` points at an Anthropic-compatible gateway
+> - - Added `claude project purge [path]` to delete all Claude Code state for a project (transcripts, tasks, file history, config entry) — supports `--dry-run`, `-y/--yes`, `-i/--interactive`, and `--all`
+> - `--dangerously-skip-permissions` now bypasses prompts for writes to `.claude/`, `.git/`, `.vscode/`, shell config files, and ot
 > 
-> ### v2.1.118
+> ### v2.1.123
 > ## What's changed
 > 
-> - Added vim visual mode (`v`) and visual-line mode (`V`) with selection, operators, and visual feedback
-> - Merged `/cost` and `/stats` into `/usage` — both remain as typing shortcuts that open the relevant tab
-> - Create and switch between named custom themes from `/theme`, or hand-edit JSON files in `~/.claude/themes/`; plugins can also ship themes via a `themes/` directory
-> - Hooks can now invoke MCP tools directly via `type: "mcp_tool"`
-> - Added `DISABLE_UPDATES` env var to comp
+> - Fixed OAuth authentication failing with a 401 retry loop when `CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS=1` is set
 > 
-> ### v2.1.117
+> 
+> ### v2.1.122
 > ## What's changed
+> 
+> - Added `ANTHROPIC_BEDROCK_SERVICE_TIER` environment variable to select a Bedrock service tier (`default`, `flex`, or `priority`), sent as the `X-Amzn-Bedrock-Service-Tier` header
+> - Pasting a PR URL into the `/resume` search box now finds the session that created that PR (GitHub, GitHub Enterprise, GitLab, and Bitbucket)
+> - `/mcp` now shows claude.ai connectors hidden by a manually-added server with the same URL, with a hint to remove the duplicate
+> - Clarified the `/mcp` messag
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
 - `guides/agents.md`
-- `guides/commands.md`
 - `guides/hooks.md`
 - `guides/settings.md`
-- `templates/agent-template.md`
-- `templates/command-template.md`
+- `guides/skills.md`
+- `templates/skill-template.md`
 
 ---
 
@@ -82,27 +81,26 @@
 
 **Resumen:**
 > Changelog updated:
-> ## 2.1.119
+> ## 2.1.126
 > 
-> - `/config` settings (theme, editor mode, verbose, etc.) now persist to `~/.claude/settings.json` and participate in project/local/policy override precedence
-> - Added `prUrlTemplate` setting to point the footer PR badge at a custom code-review URL instead of github.com
-> - Added `CLAUDE_CODE_HIDE_CWD` environment variable to hide the working directory in the startup logo
-> - `--from-pr` now accepts GitLab merge-request, Bitbucket pull-request, and GitHub Enterprise PR URLs
-> - `--print` mode now honors the agent's `tools:` and `disallowedTools:` frontmatter, matching interactive-mode behavior
-> - `--agent <name>` now honors the agent definition's `permissionMode` for built-in agents
-> - PowerShell tool commands can now be auto-approved in permission mode, matching Bash behavior
-> - Hooks: `PostToolUse` and `PostToolUseFailure` hook inputs now include `duration_ms` (tool execution time, excluding permission prompts and PreToolUse hooks)
-> - Subagent and SDK MCP server reconfiguration now connects servers in parallel instead of serially
-> - Plugins pinned by another plugin's version constraint now auto-update to the highest satisfying git tag
-> - Vim mode: Esc in INSERT no longer pulls a queued message back into the input; press Esc again to interrupt
-> - Slash command suggestions now highlight the characters that matched your query
-> - Slash command picker now wraps long descriptions onto a second line instead of truncating
+> - The `/model` picker now lists models from your gateway's `/v1/models` endpoint when `ANTHROPIC_BASE_URL` points at an Anthropic-compatible gateway
+> - - Added `claude project purge [path]` to delete all Claude Code state for a project (transcripts, tasks, file history, config entry) — supports `--dry-run`, `-y/--yes`, `-i/--interactive`, and `--all`
+> - `--dangerously-skip-permissions` now bypasses prompts for writes to `.claude/`, `.git/`, `.vscode/`, shell config files, and other previously-protected paths (catastrophic removal commands still prompt as a safety net)
+> - `claude auth login` now accepts the OAuth code pasted into the terminal when the browser callback can't reach localhost (WSL2, SSH, containers)
+> - `claude_code.skill_activated` OpenTelemetry event now fires for user-typed slash commands and carries a new `invocation_trigger` attribute (`"user-slash"`, `"claude-proactive"`, or `"nested-skill"`)
+> - Auto mode: the spinner now turns red when a permission check stalls, instead of looking like the tool is running
+> - Host-managed deployments (`CLAUDE_CODE_PROVIDER_MANAGED_BY_HOST`) no longer auto-disable analytics on Bedrock/Vertex/Foundry
+> - Windows: PowerShell 7 installed via the Microsoft Store, MSI without PATH, or `.NET global tool` is now detected
+> - Windows: when the PowerShell tool is enabled, Claude now treats PowerShell as the primary shell instead of defaulting to Bash
+> - Read tool: removed the per-file malware-assessment reminder that could cause spurious refusals and "this is not malware" commentary on legacy models
+> - **Security:** Fixed `allowManagedDomainsOnly` / `allowManagedReadPathsOnly` being ignored when a higher-priority managed-settings source lacked a `sandbox` block
+> - Fixed pasting an image larger than 2000px breaking the session — images are now downscaled on paste, and oversized images in history are automatically removed and the request retried
+> - Fixed showing the login screen for "OAuth not allowed for organization" errors — now shows guidance to contact your admin
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
 - `guides/agents.md`
 - `guides/commands.md`
-- `guides/hooks.md`
 - `guides/settings.md`
 - `guides/skills.md`
 - `templates/agent-template.md`
@@ -116,35 +114,28 @@
 **URL:** https://raw.githubusercontent.com/hesreallyhim/awesome-claude-code/main/README.md
 
 **Resumen:**
-> <!-- GENERATED FILE: do not edit directly -->
-> <h3 align="center">Pick Your Style:</h3>
-> <p align="center">
-> <a href="./"><img src="assets/badge-style-awesome.svg" alt="Awesome" height="28" style="border: 2px solid #cc3366; border-radius: 4px;"></a>
-> <a href="README_ALTERNATIVES/README_EXTRA.md"><img src="assets/badge-style-extra.svg" alt="Extra" height="28"></a>
-> <a href="README_ALTERNATIVES/README_CLASSIC.md"><img src="assets/badge-style-classic.svg" alt="Classic" height="28"></a>
-> <a href="README_ALTERNATIVES/README_FLAT_ALL_AZ.md"><img src="assets/badge-style-flat.svg" alt="Flat" height="28"></a>
-> </p>
+> # Awesome Claude Code
 > 
-> <p align="center">
->   <picture>
->     <img src="assets/ACC-social-banner.png" alt="Awesome Claude Code" width="600">
->   </picture>
-> </p>
+> <em>A delightfully curated collection of the finest of resources for the most excellent of agents, Claude Code, by Anthropic PBC. Contains high quality skills, agents, hooks, status lines, orchestrators, developer tooling, and all the latest features that the Claude Code team continue to ship. Suitable for beginners and veterans, with an emphasis on code quality, security, and originality.</em>
 > 
-> ... (401 more lines)
+> <br>
+> 
+> > [!NOTE]
+> > The old ways have come and gone. It's time to embrace the next phase.
+> > The previous Table of Contents was no longer fit for purpose, so a new organizational system is being prepared. Thanks to everyone who has contributed to and supported this repo, be ye human or machine.
+> 
+> <picture>
+>   <source media="(prefers-color-scheme: dark)" srcset="assets/update-in-progress-dark.svg">
+>   <source media="(prefers-color-scheme: light)" srcset="assets/update-in-progress-light-2.svg">
+>   <img alt="Update in progress" src="assets/update-in-progress-light-2.svg">
+> </picture>
+> ... (16 more lines)
 
 **Ficheros potencialmente afectados:**
-- `examples/settings.json`
 - `guides/agents.md`
-- `guides/commands.md`
 - `guides/hooks.md`
-- `guides/memory.md`
-- `guides/rules.md`
-- `guides/settings.md`
 - `guides/skills.md`
 - `templates/agent-template.md`
-- `templates/command-template.md`
-- `templates/rule-template.md`
 - `templates/skill-template.md`
 
 ---
