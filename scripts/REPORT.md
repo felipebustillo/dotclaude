@@ -1,4 +1,4 @@
-# Update Monitor Report — 2026-05-04
+# Update Monitor Report — 2026-05-11
 
 ## official-docs (Claude Code Official Docs Index)
 **Estado:** Cambios detectados
@@ -20,7 +20,7 @@
 > - [Intercept and control agent behavior with hooks](https://code.claude.com/docs/en/agent-sdk/hooks.md): Intercept and customize agent behavior at key execution points with hooks
 > - [Hosting the Agent SDK](https://code.claude.com/docs/en/agent-sdk/hosting.md): Deploy and host Claude Agent SDK in production environments
 > - [Connect to external tools with MCP](https://code.claude.com/docs/en/agent-sdk/mcp.md): Configure MCP servers to extend your agent with external tools. Covers transport types, tool search for large tool sets, authentication, and error handling.
-> ... (115 more lines)
+> ... (117 more lines)
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
@@ -44,34 +44,35 @@
 
 **Resumen:**
 > Release content updated:
-> ### v2.1.126
+> ### v2.1.138
 > ## What's changed
 > 
-> - The `/model` picker now lists models from your gateway's `/v1/models` endpoint when `ANTHROPIC_BASE_URL` points at an Anthropic-compatible gateway
-> - - Added `claude project purge [path]` to delete all Claude Code state for a project (transcripts, tasks, file history, config entry) — supports `--dry-run`, `-y/--yes`, `-i/--interactive`, and `--all`
-> - `--dangerously-skip-permissions` now bypasses prompts for writes to `.claude/`, `.git/`, `.vscode/`, shell config files, and ot
+> - Internal fixes
 > 
-> ### v2.1.123
+> 
+> ### v2.1.137
 > ## What's changed
 > 
-> - Fixed OAuth authentication failing with a 401 retry loop when `CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS=1` is set
+> - [VSCode] Fixed extension failing to activate on Windows
 > 
 > 
-> ### v2.1.122
+> ### v2.1.136
 > ## What's changed
 > 
-> - Added `ANTHROPIC_BEDROCK_SERVICE_TIER` environment variable to select a Bedrock service tier (`default`, `flex`, or `priority`), sent as the `X-Amzn-Bedrock-Service-Tier` header
-> - Pasting a PR URL into the `/resume` search box now finds the session that created that PR (GitHub, GitHub Enterprise, GitLab, and Bitbucket)
-> - `/mcp` now shows claude.ai connectors hidden by a manually-added server with the same URL, with a hint to remove the duplicate
-> - Clarified the `/mcp` messag
+> - Added `CLAUDE_CODE_ENABLE_FEEDBACK_SURVEY_FOR_OTEL` to re-enable the session quality survey for enterprises capturing responses through OpenTelemetry
+> - Added `settings.autoMode.hard_deny` for auto mode classifier rules that block unconditionally regardless of user intent or allow exceptions
+> - Fixed MCP servers configured in `.mcp.json`, plugins, and claude.ai connectors silently disappearing after `/clear` in the VS Code extension, JetBrains plugin, and Agent SDK
+> - Fixed a r
+> 
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
 - `guides/agents.md`
 - `guides/hooks.md`
+- `guides/rules.md`
 - `guides/settings.md`
-- `guides/skills.md`
-- `templates/skill-template.md`
+- `templates/agent-template.md`
+- `templates/rule-template.md`
 
 ---
 
@@ -81,62 +82,9 @@
 
 **Resumen:**
 > Changelog updated:
-> ## 2.1.126
+> ## 2.1.138
 > 
-> - The `/model` picker now lists models from your gateway's `/v1/models` endpoint when `ANTHROPIC_BASE_URL` points at an Anthropic-compatible gateway
-> - - Added `claude project purge [path]` to delete all Claude Code state for a project (transcripts, tasks, file history, config entry) — supports `--dry-run`, `-y/--yes`, `-i/--interactive`, and `--all`
-> - `--dangerously-skip-permissions` now bypasses prompts for writes to `.claude/`, `.git/`, `.vscode/`, shell config files, and other previously-protected paths (catastrophic removal commands still prompt as a safety net)
-> - `claude auth login` now accepts the OAuth code pasted into the terminal when the browser callback can't reach localhost (WSL2, SSH, containers)
-> - `claude_code.skill_activated` OpenTelemetry event now fires for user-typed slash commands and carries a new `invocation_trigger` attribute (`"user-slash"`, `"claude-proactive"`, or `"nested-skill"`)
-> - Auto mode: the spinner now turns red when a permission check stalls, instead of looking like the tool is running
-> - Host-managed deployments (`CLAUDE_CODE_PROVIDER_MANAGED_BY_HOST`) no longer auto-disable analytics on Bedrock/Vertex/Foundry
-> - Windows: PowerShell 7 installed via the Microsoft Store, MSI without PATH, or `.NET global tool` is now detected
-> - Windows: when the PowerShell tool is enabled, Claude now treats PowerShell as the primary shell instead of defaulting to Bash
-> - Read tool: removed the per-file malware-assessment reminder that could cause spurious refusals and "this is not malware" commentary on legacy models
-> - **Security:** Fixed `allowManagedDomainsOnly` / `allowManagedReadPathsOnly` being ignored when a higher-priority managed-settings source lacked a `sandbox` block
-> - Fixed pasting an image larger than 2000px breaking the session — images are now downscaled on paste, and oversized images in history are automatically removed and the request retried
-> - Fixed showing the login screen for "OAuth not allowed for organization" errors — now shows guidance to contact your admin
-
-**Ficheros potencialmente afectados:**
-- `examples/settings.json`
-- `guides/agents.md`
-- `guides/commands.md`
-- `guides/settings.md`
-- `guides/skills.md`
-- `templates/agent-template.md`
-- `templates/command-template.md`
-- `templates/skill-template.md`
-
----
-
-## awesome-list (Awesome Claude Code)
-**Estado:** Cambios detectados
-**URL:** https://raw.githubusercontent.com/hesreallyhim/awesome-claude-code/main/README.md
-
-**Resumen:**
-> # Awesome Claude Code
-> 
-> <em>A delightfully curated collection of the finest of resources for the most excellent of agents, Claude Code, by Anthropic PBC. Contains high quality skills, agents, hooks, status lines, orchestrators, developer tooling, and all the latest features that the Claude Code team continue to ship. Suitable for beginners and veterans, with an emphasis on code quality, security, and originality.</em>
-> 
-> <br>
-> 
-> > [!NOTE]
-> > The old ways have come and gone. It's time to embrace the next phase.
-> > The previous Table of Contents was no longer fit for purpose, so a new organizational system is being prepared. Thanks to everyone who has contributed to and supported this repo, be ye human or machine.
-> 
-> <picture>
->   <source media="(prefers-color-scheme: dark)" srcset="assets/update-in-progress-dark.svg">
->   <source media="(prefers-color-scheme: light)" srcset="assets/update-in-progress-light-2.svg">
->   <img alt="Update in progress" src="assets/update-in-progress-light-2.svg">
-> </picture>
-> ... (16 more lines)
-
-**Ficheros potencialmente afectados:**
-- `guides/agents.md`
-- `guides/hooks.md`
-- `guides/skills.md`
-- `templates/agent-template.md`
-- `templates/skill-template.md`
+> - Internal fixes
 
 ---
 
