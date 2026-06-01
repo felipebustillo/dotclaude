@@ -1,4 +1,4 @@
-# Update Monitor Report — 2026-05-25
+# Update Monitor Report — 2026-06-01
 
 ## official-docs (Claude Code Official Docs Index)
 **Estado:** Cambios detectados
@@ -18,9 +18,9 @@
 > - [Give Claude custom tools](https://code.claude.com/docs/en/agent-sdk/custom-tools.md): Define custom tools with the Claude Agent SDK's in-process MCP server so Claude can call your functions, hit your APIs, and perform domain-specific operations.
 > - [Rewind file changes with checkpointing](https://code.claude.com/docs/en/agent-sdk/file-checkpointing.md): Track file changes during agent sessions and restore files to any previous state
 > - [Intercept and control agent behavior with hooks](https://code.claude.com/docs/en/agent-sdk/hooks.md): Intercept and customize agent behavior at key execution points with hooks
-> - [Hosting the Agent SDK](https://code.claude.com/docs/en/agent-sdk/hosting.md): Deploy and host Claude Agent SDK in production environments
+> - [Hosting the Agent SDK](https://code.claude.com/docs/en/agent-sdk/hosting.md): Deploy the Agent SDK in production: subprocess architecture, session persistence, scaling, observability, and multi-tenant isolation for Docker, Kubernetes, and sandbox providers.
 > - [Connect to external tools with MCP](https://code.claude.com/docs/en/agent-sdk/mcp.md): Configure MCP servers to extend your agent with external tools. Covers transport types, tool search for large tool sets, authentication, and error handling.
-> ... (131 more lines)
+> ... (135 more lines)
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
@@ -44,32 +44,31 @@
 
 **Resumen:**
 > Release content updated:
-> ### v2.1.150
+> ### v2.1.159
 > ## What's changed
 > 
 > - Internal infrastructure improvements (no user-facing changes)
 > 
 > 
-> ### v2.1.149
+> ### v2.1.158
 > ## What's changed
 > 
-> - `/usage` now shows a per-category breakdown of what's driving your limits usage — skills, subagents, plugins, and per-MCP-server cost
-> - `/diff` detail view can now be scrolled with the keyboard (arrows, `j`/`k`, `PgUp`/`PgDn`, `Space`, `Home`/`End`)
-> - Markdown output now renders GFM task list checkboxes (`- [ ] todo` / `- [x] done`) instead of plain bullets
-> - Enterprise: added the `allowAllClaudeAiMcps` managed setting to load claude.ai cloud MCP connectors alongside `manage
+> - Auto mode is now available on Bedrock, Vertex, and Foundry for Opus 4.7 and Opus 4.8. Opt in by setting `CLAUDE_CODE_ENABLE_AUTO_MODE=1`
 > 
-> ### v2.1.148
+> 
+> ### v2.1.157
 > ## What's changed
 > 
-> - Fixed the Bash tool returning exit code 127 on every command for some users (a regression introduced in 2.1.147)
-> 
-> 
+> - Plugins in `.claude/skills` directories are now automatically loaded, no marketplace required
+> - Added `claude plugin init <name>` to scaffold a new plugin in `.claude/skills`
+> - Added autocomplete for `/plugin` arguments: subcommands, installed plugin names, and plugins from known marketplaces
+> - `claude agents`: the `agent` field in `settings.json` is now honored for dispatched sessions, with `--agent <name>` to override it
+> - `EnterWorktree` can now switch between Claude-mana
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
 - `guides/agents.md`
 - `guides/commands.md`
-- `guides/memory.md`
 - `guides/settings.md`
 - `guides/skills.md`
 - `templates/agent-template.md`
@@ -84,7 +83,7 @@
 
 **Resumen:**
 > Changelog updated:
-> ## 2.1.150
+> ## 2.1.159
 > 
 > - Internal infrastructure improvements (no user-facing changes)
 
