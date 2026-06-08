@@ -1,4 +1,4 @@
-# Update Monitor Report — 2026-06-01
+# Update Monitor Report — 2026-06-08
 
 ## official-docs (Claude Code Official Docs Index)
 **Estado:** Cambios detectados
@@ -20,7 +20,7 @@
 > - [Intercept and control agent behavior with hooks](https://code.claude.com/docs/en/agent-sdk/hooks.md): Intercept and customize agent behavior at key execution points with hooks
 > - [Hosting the Agent SDK](https://code.claude.com/docs/en/agent-sdk/hosting.md): Deploy the Agent SDK in production: subprocess architecture, session persistence, scaling, observability, and multi-tenant isolation for Docker, Kubernetes, and sandbox providers.
 > - [Connect to external tools with MCP](https://code.claude.com/docs/en/agent-sdk/mcp.md): Configure MCP servers to extend your agent with external tools. Covers transport types, tool search for large tool sets, authentication, and error handling.
-> ... (135 more lines)
+> ... (136 more lines)
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
@@ -44,36 +44,37 @@
 
 **Resumen:**
 > Release content updated:
-> ### v2.1.159
+> ### v2.1.168
 > ## What's changed
 > 
-> - Internal infrastructure improvements (no user-facing changes)
+> - Bug fixes and reliability improvements
 > 
 > 
-> ### v2.1.158
+> ### v2.1.167
 > ## What's changed
 > 
-> - Auto mode is now available on Bedrock, Vertex, and Foundry for Opus 4.7 and Opus 4.8. Opt in by setting `CLAUDE_CODE_ENABLE_AUTO_MODE=1`
+> - Bug fixes and reliability improvements
 > 
 > 
-> ### v2.1.157
+> ### v2.1.166
 > ## What's changed
 > 
-> - Plugins in `.claude/skills` directories are now automatically loaded, no marketplace required
-> - Added `claude plugin init <name>` to scaffold a new plugin in `.claude/skills`
-> - Added autocomplete for `/plugin` arguments: subcommands, installed plugin names, and plugins from known marketplaces
-> - `claude agents`: the `agent` field in `settings.json` is now honored for dispatched sessions, with `--agent <name>` to override it
-> - `EnterWorktree` can now switch between Claude-mana
+> - Added `fallbackModel` setting to configure up to three fallback models tried in order when the primary model is overloaded or unavailable; `--fallback-model` now also applies to interactive sessions
+> - Added glob pattern support in deny rule tool-name position (`"*"` denies all tools); allow rules reject non-MCP globs, and unknown tool names in deny rules warn at startup
+> - Hardened cross-session messaging: messages relayed via `SendMessage` from other Claude sessions no longe
+> 
+> ### v2.1.165
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
 - `guides/agents.md`
 - `guides/commands.md`
+- `guides/hooks.md`
+- `guides/rules.md`
 - `guides/settings.md`
-- `guides/skills.md`
 - `templates/agent-template.md`
 - `templates/command-template.md`
-- `templates/skill-template.md`
+- `templates/rule-template.md`
 
 ---
 
@@ -83,9 +84,9 @@
 
 **Resumen:**
 > Changelog updated:
-> ## 2.1.159
+> ## 2.1.168
 > 
-> - Internal infrastructure improvements (no user-facing changes)
+> - Bug fixes and reliability improvements
 
 ---
 
