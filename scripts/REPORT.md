@@ -1,4 +1,4 @@
-# Update Monitor Report — 2026-06-15
+# Update Monitor Report — 2026-06-22
 
 ## official-docs (Claude Code Official Docs Index)
 **Estado:** Cambios detectados
@@ -20,7 +20,7 @@
 > - [Rewind file changes with checkpointing](https://code.claude.com/docs/en/agent-sdk/file-checkpointing.md): Track file changes during agent sessions and restore files to any previous state
 > - [Intercept and control agent behavior with hooks](https://code.claude.com/docs/en/agent-sdk/hooks.md): Intercept and customize agent behavior at key execution points with hooks
 > - [Hosting the Agent SDK](https://code.claude.com/docs/en/agent-sdk/hosting.md): Deploy the Agent SDK in production: subprocess architecture, session persistence, scaling, observability, and multi-tenant isolation for Docker, Kubernetes, and sandbox providers.
-> ... (137 more lines)
+> ... (140 more lines)
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
@@ -44,31 +44,38 @@
 
 **Resumen:**
 > Release content updated:
-> ### v2.1.177
-> 
-> 
-> 
-> ### v2.1.176
+> ### v2.1.185
 > ## What's changed
 > 
-> - Session titles are now generated in the language of your conversation (set the `language` setting to pin a specific language)
-> - Added `footerLinksRegexes` setting for regex-matched link badges in the footer row, configurable via user or managed settings
-> - Improved Bedrock credential caching: credentials from `awsCredentialExport` are now cached until their `Expiration` instead of a fixed 1 hour
-> - Fixed `availableModels` enforcement: alias model picks can no longer be redirec
+> - The stream-stall hint now reads "Waiting for API response · will retry in …" instead of "No response from API · Retrying in …", and triggers after 20s of silence instead of 10s
 > 
-> ### v2.1.175
+> 
+> ### v2.1.183
 > ## What's changed
 > 
-> - Added `enforceAvailableModels` managed setting — when enabled, the `availableModels` allowlist also constrains the Default model (a Default that would resolve to a disallowed model now falls back to the first allowed model), and user or project settings can no longer widen a managed `availableModels` list
+> - Improved auto mode safety: destructive git commands (`git reset --hard`, `git checkout -- .`, `git clean -fd`, `git stash drop`) are now blocked when you didn't ask to discard local work, `git commit --amend` is blocked when the commit wasn't made by the agent this session, and `terraform destroy`/`pulumi destroy`/`cdk destroy` are blocked unless you asked for the specific stack
+> - Added a warning when the requested model is deprecated or automatically updated to a newer mode
 > 
-> 
-> ### v2.1.174
+> ### v2.1.181
 > ## What's changed
+> 
+> - Added `/config key=value` syntax to set any setting from the prompt (e.g. `/config thinking=false`) — works in interactive, `-p`, and Remote Control
+> - Added `sandbox.allowAppleEvents` opt-in setting that lets sandboxed commands send Apple Events on macOS
+> - Added `CLAUDE_CLIENT_PRESENCE_FILE` environment variable: point it at a marker file to suppress mobile push notifications while you're at the machine
+> - Upgraded the bundled Bun runtime to 1.4
+> - Improved streaming of long p
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
 - `guides/agents.md`
+- `guides/commands.md`
+- `guides/rules.md`
 - `guides/settings.md`
+- `guides/skills.md`
+- `templates/agent-template.md`
+- `templates/command-template.md`
+- `templates/rule-template.md`
+- `templates/skill-template.md`
 
 ---
 
@@ -78,28 +85,9 @@
 
 **Resumen:**
 > Changelog updated:
-> ## 2.1.176
+> ## 2.1.185
 > 
-> - Session titles are now generated in the language of your conversation (set the `language` setting to pin a specific language)
-> - Added `footerLinksRegexes` setting for regex-matched link badges in the footer row, configurable via user or managed settings
-> - Improved Bedrock credential caching: credentials from `awsCredentialExport` are now cached until their `Expiration` instead of a fixed 1 hour
-> - Fixed `availableModels` enforcement: alias model picks can no longer be redirected to a blocked model via `ANTHROPIC_DEFAULT_*_MODEL` environment variables, and `/fast` now refuses to toggle when it would switch to a model outside the allowlist
-> - Fixed auto mode failing on Fable 5 for organizations without Opus 4.8 enabled — the classifier now falls back to the best available Opus model
-> - Fixed hook `if` conditions for Read/Edit/Write tool paths: documented patterns like `Edit(src/**)`, `Read(~/.ssh/**)`, and `Read(.env)` now match correctly
-> - Fixed Linux sandbox failing to start when `.claude/settings.json` is a symlink with an absolute target
-> - Fixed `/copy` and mouse-selection copy not reaching the system clipboard inside tmux over SSH, and tmux paste buffer not loading on versions older than 3.2
-> - Fixed Remote Control connecting from web/mobile silently switching the session's model
-> - Fixed Remote Control disconnect notifications showing a bare numeric code instead of a human-readable reason, and connection failures adding a duplicate line to the conversation transcript
-> - Fixed Remote Control sessions not disconnecting when you sign in to a different account
-> - Fixed `/cd` and worktree moves leaving the session reporting the previous directory's git branch
-> - Fixed `claude agents`: pressing back in one window no longer detaches other windows attached to the same session
-
-**Ficheros potencialmente afectados:**
-- `examples/settings.json`
-- `guides/agents.md`
-- `guides/hooks.md`
-- `guides/settings.md`
-- `templates/agent-template.md`
+> - The stream-stall hint now reads "Waiting for API response · will retry in …" instead of "No response from API · Retrying in …", and triggers after 20s of silence instead of 10s
 
 ---
 
