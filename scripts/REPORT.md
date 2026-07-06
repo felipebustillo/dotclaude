@@ -1,4 +1,4 @@
-# Update Monitor Report — 2026-06-29
+# Update Monitor Report — 2026-07-06
 
 ## official-docs (Claude Code Official Docs Index)
 **Estado:** Cambios detectados
@@ -20,7 +20,7 @@
 > - [Rewind file changes with checkpointing](https://code.claude.com/docs/en/agent-sdk/file-checkpointing.md): Track file changes during agent sessions and restore files to any previous state
 > - [Intercept and control agent behavior with hooks](https://code.claude.com/docs/en/agent-sdk/hooks.md): Intercept and customize agent behavior at key execution points with hooks
 > - [Hosting the Agent SDK](https://code.claude.com/docs/en/agent-sdk/hosting.md): Deploy the Agent SDK in production: subprocess architecture, session persistence, scaling, observability, and multi-tenant isolation for Docker, Kubernetes, and sandbox providers.
-> ... (147 more lines)
+> ... (154 more lines)
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
@@ -44,35 +44,35 @@
 
 **Resumen:**
 > Release content updated:
-> ### v2.1.195
+> ### v2.1.201
 > ## What's changed
 > 
-> - Added `CLAUDE_CODE_DISABLE_MOUSE_CLICKS` to disable mouse click/drag/hover in fullscreen mode while keeping wheel scroll
-> - Fixed hook matchers with hyphenated identifiers (e.g. `code-reviewer`, `mcp__brave-search`) accidentally substring-matching — they now exact-match. Use `mcp__brave-search__.*` to match all tools from a hyphenated MCP server.
-> - Fixed voice dictation on macOS capturing silence in long-running sessions after the default input device changes
-> - Fixed voice di
+> - Claude Sonnet 5 sessions no longer use the mid-conversation system role for harness reminders
 > 
-> ### v2.1.193
+> 
+> ### v2.1.200
 > ## What's changed
 > 
-> - Added `autoMode.classifyAllShell` setting to route all Bash/PowerShell commands through the auto-mode classifier instead of only arbitrary-code-execution patterns
-> - Added auto-mode denial reasons to the transcript, the denial toast, and `/permissions` recent denials
-> - Added `claude_code.assistant_response` OpenTelemetry log event containing the model's response text. Redacted unless `OTEL_LOG_ASSISTANT_RESPONSES=1`; when that var is unset it follows `OTEL_LOG_USER_PROMPTS`, 
+> - Changed `AskUserQuestion` dialogs to no longer auto-continue by default; opt into an idle timeout via `/config`
+> - Changed the "default" permission mode to "Manual" across the CLI, `--help`, VS Code, and JetBrains; `--permission-mode manual` and `"defaultMode": "manual"` are accepted alongside `default`
+> - Fixed a crash at startup when `disabledMcpServers` or `enabledMcpServers` in `.claude.json` is set to a non-array value
+> - Fixed background sessions silently stopping mid-tur
 > 
-> ### v2.1.191
+> ### v2.1.199
 > ## What's changed
 > 
-> - Added `/rewind` support for resuming a conversation from before `/clear` was run
-> - Fixed scroll position jumping to the bottom while reading earlier output during a streaming response
+> - Stacked slash-skill invocations like `/skill-a /skill-b do XYZ` now load all leading skills (up to 5), not just the first
+> - Fixed SSL certificate errors (TLS-inspecting proxies, missing `NODE_EXTRA_CA_CERTS`, expired certs) burning retries before showing actionable guidance — they now fail immediately with the fix hint
+> - Fixed streaming responses being discarded when the API emits a mid-stream overloaded/server error after partial output — the partial is now kept with an inc
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
 - `guides/agents.md`
-- `guides/commands.md`
 - `guides/hooks.md`
 - `guides/settings.md`
+- `guides/skills.md`
 - `templates/agent-template.md`
-- `templates/command-template.md`
+- `templates/skill-template.md`
 
 ---
 
@@ -82,27 +82,9 @@
 
 **Resumen:**
 > Changelog updated:
-> ## 2.1.195
+> ## 2.1.201
 > 
-> - Added `CLAUDE_CODE_DISABLE_MOUSE_CLICKS` to disable mouse click/drag/hover in fullscreen mode while keeping wheel scroll
-> - Fixed hook matchers with hyphenated identifiers (e.g. `code-reviewer`, `mcp__brave-search`) accidentally substring-matching — they now exact-match. Use `mcp__brave-search__.*` to match all tools from a hyphenated MCP server.
-> - Fixed voice dictation on macOS capturing silence in long-running sessions after the default input device changes
-> - Fixed voice dictation auto-submit never firing for languages written without spaces (Japanese, Chinese, Thai)
-> - Fixed external plugins enabled only by project `.claude/settings.json` not requiring explicit install consent on every loader path
-> - Fixed `/plugin` Enable/Disable not working when a plugin's `plugin.json` `name` differs from its marketplace entry name
-> - Fixed background jobs disappearing from `claude agents` or losing data when written by a newer Claude Code version
-> - Fixed reopening a crashed background task showing a blank screen for up to 5 seconds instead of its restart
-> - Fixed background agent daemons running unreachable when the control socket fails to start, blocking restarts
-> - Improved voice mode on Linux: now distinguishes "no microphone" from "SoX not installed" when SoX is present but no audio capture device exists
-> - Improved `claude agents` completed list to fill available vertical space; on short terminals the header compacts so live sessions stay visible
-> - Improved Remote session startup with a provisioning checklist while the container starts
-
-**Ficheros potencialmente afectados:**
-- `examples/settings.json`
-- `guides/agents.md`
-- `guides/hooks.md`
-- `guides/settings.md`
-- `templates/agent-template.md`
+> - Claude Sonnet 5 sessions no longer use the mid-conversation system role for harness reminders
 
 ---
 
@@ -111,21 +93,35 @@
 **URL:** https://raw.githubusercontent.com/hesreallyhim/awesome-claude-code/main/README.md
 
 **Resumen:**
-> # Awesome Claude Code
+> ![Awesome Claude Code](assets/awesome-claude-code-banner.png)
 > 
-> <em>A delightfully curated collection of the finest of resources for the most excellent of agents, Claude Code, by Anthropic PBC. Contains high quality skills, agents, hooks, status lines, orchestrators, developer tooling, and all the latest features that the Claude Code team continue to ship. Suitable for beginners and veterans, with an emphasis on code quality, security, and originality.</em>
+> <!-- Awesome Claude Code -->
+> 
+> [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
+> 
+> _A hand-picked collection of the finest of resources for the most awesome of agents, [Claude Code](https://code.claude.com/docs/), the undisputed champion of coding companions, from the unstoppable team at [Anthropic PBC](https://github.com/anthropics/claude-code). A delectable showcase of top tier skills, ambidextrous agents, scintillating status lines, top notch developer tooling, and also we have plugins. Suitable for beginners and veterans, with an emphasis on code quality, security, and originality._
 > 
 > <br>
 > 
-> # Table of Contents
+> The current iteration of the list, such as you see it today, was launched with the express intent to highlight resources that were _not_ on the last iteration, and in particular to make selections from the list of recommendations. However, this is only temporary - resources will continue to be added over the coming weeks, and "legacy" resources will be migrated to the new format. So, if you had been featured on the list before, and you don't see your project now, that's the reason why - "legacy" resources that are still maintained and awesome will be added back in soon - _and_, in the meantime, they are also preserved (but will not be updated) in the [README_ALTERNATIVES](README_ALTERNATIVES/) directory.
 > 
-> Coming soon...
+> <br>
+> 
+> 
+> ... (402 more lines)
 
 **Ficheros potencialmente afectados:**
+- `examples/settings.json`
 - `guides/agents.md`
+- `guides/commands.md`
 - `guides/hooks.md`
+- `guides/memory.md`
+- `guides/rules.md`
+- `guides/settings.md`
 - `guides/skills.md`
 - `templates/agent-template.md`
+- `templates/command-template.md`
+- `templates/rule-template.md`
 - `templates/skill-template.md`
 
 ---
