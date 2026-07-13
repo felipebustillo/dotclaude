@@ -1,4 +1,4 @@
-# Update Monitor Report — 2026-07-06
+# Update Monitor Report — 2026-07-13
 
 ## official-docs (Claude Code Official Docs Index)
 **Estado:** Cambios detectados
@@ -20,7 +20,7 @@
 > - [Rewind file changes with checkpointing](https://code.claude.com/docs/en/agent-sdk/file-checkpointing.md): Track file changes during agent sessions and restore files to any previous state
 > - [Intercept and control agent behavior with hooks](https://code.claude.com/docs/en/agent-sdk/hooks.md): Intercept and customize agent behavior at key execution points with hooks
 > - [Hosting the Agent SDK](https://code.claude.com/docs/en/agent-sdk/hosting.md): Deploy the Agent SDK in production: subprocess architecture, session persistence, scaling, observability, and multi-tenant isolation for Docker, Kubernetes, and sandbox providers.
-> ... (154 more lines)
+> ... (156 more lines)
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
@@ -44,35 +44,35 @@
 
 **Resumen:**
 > Release content updated:
-> ### v2.1.201
+> ### v2.1.207
 > ## What's changed
 > 
-> - Claude Sonnet 5 sessions no longer use the mid-conversation system role for harness reminders
+> - Auto mode is now available without `CLAUDE_CODE_ENABLE_AUTO_MODE` opt-in on Bedrock, Vertex AI, and Foundry; disable via `disableAutoMode` in settings
+> - Fixed the terminal freezing and keystrokes lagging while streaming responses containing very long lists, tables, paragraphs, or code blocks
+> - Fixed remote managed settings from a non-interactive run (`claude -p`, the SDK) being permanently recorded as consented without ever showing the security consent dialog
+> - Fixed spuriou
 > 
-> 
-> ### v2.1.200
+> ### v2.1.206
 > ## What's changed
 > 
-> - Changed `AskUserQuestion` dialogs to no longer auto-continue by default; opt into an idle timeout via `/config`
-> - Changed the "default" permission mode to "Manual" across the CLI, `--help`, VS Code, and JetBrains; `--permission-mode manual` and `"defaultMode": "manual"` are accepted alongside `default`
-> - Fixed a crash at startup when `disabledMcpServers` or `enabledMcpServers` in `.claude.json` is set to a non-array value
-> - Fixed background sessions silently stopping mid-tur
+> - Added directory path suggestions to `/cd`, matching `/add-dir` behavior
+> - Added a `/doctor` check that proposes trimming checked-in `CLAUDE.md` files by cutting content Claude could derive from the codebase
+> - `/commit-push-pr` now auto-allows `git push` to the repo's configured push remote (`remote.pushDefault`, or the sole remote when only one is configured) in addition to `origin`
+> - Gateway: `/login` now supports Anthropic-operated public gateway endpoints
+> - `EnterWorktree
 > 
-> ### v2.1.199
+> ### v2.1.205
 > ## What's changed
 > 
-> - Stacked slash-skill invocations like `/skill-a /skill-b do XYZ` now load all leading skills (up to 5), not just the first
-> - Fixed SSL certificate errors (TLS-inspecting proxies, missing `NODE_EXTRA_CA_CERTS`, expired certs) burning retries before showing actionable guidance — they now fail immediately with the fix hint
-> - Fixed streaming responses being discarded when the API emits a mid-stream overloaded/server error after partial output — the partial is now kept with an inc
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
 - `guides/agents.md`
 - `guides/hooks.md`
+- `guides/rules.md`
 - `guides/settings.md`
-- `guides/skills.md`
 - `templates/agent-template.md`
-- `templates/skill-template.md`
+- `templates/rule-template.md`
 
 ---
 
@@ -82,9 +82,34 @@
 
 **Resumen:**
 > Changelog updated:
-> ## 2.1.201
+> ## 2.1.207
 > 
-> - Claude Sonnet 5 sessions no longer use the mid-conversation system role for harness reminders
+> - Auto mode is now available without `CLAUDE_CODE_ENABLE_AUTO_MODE` opt-in on Bedrock, Vertex AI, and Foundry; disable via `disableAutoMode` in settings
+> - Fixed the terminal freezing and keystrokes lagging while streaming responses containing very long lists, tables, paragraphs, or code blocks
+> - Fixed remote managed settings from a non-interactive run (`claude -p`, the SDK) being permanently recorded as consented without ever showing the security consent dialog
+> - Fixed spurious prompt-injection warnings triggered by benign system-generated conversation updates
+> - Fixed the auto-updater overwriting a custom launcher script or symlink at `~/.local/bin/claude` on every release; `/doctor` now reports an externally managed launcher
+> - Fixed compound commands with `cd` prompting for permission when the only output redirect was to `/dev/null`
+> - Fixed the transcript jumping above the start of the answer when a response finishes streaming
+> - Fixed `extensions.worktreeConfig` being left in the repo's `.git/config` (breaking go-git tools like `tea`) after the last `worktree.sparsePaths` worktree was removed
+> - Fixed malformed bracket patterns in rules globs, skill paths, `.ignore`, and `.worktreeinclude` breaking file reads, file suggestions, and worktree creation
+> - Fixed a crash loop in agent teams where a malformed teammate mailbox message caused repeated errors every second until the mailbox file was manually deleted
+> - Fixed background sessions auto-named by accepting a plan not showing that name on their agent-view row
+> - Fixed background sessions that entered a git worktree resuming blank after a cold reopen from the agent list
+> - Fixed Remote Control task status updates being lost when the connection recovered from a network interruption or credential refresh
+
+**Ficheros potencialmente afectados:**
+- `examples/settings.json`
+- `guides/agents.md`
+- `guides/commands.md`
+- `guides/hooks.md`
+- `guides/rules.md`
+- `guides/settings.md`
+- `guides/skills.md`
+- `templates/agent-template.md`
+- `templates/command-template.md`
+- `templates/rule-template.md`
+- `templates/skill-template.md`
 
 ---
 
@@ -108,7 +133,7 @@
 > <br>
 > 
 > 
-> ... (402 more lines)
+> ... (405 more lines)
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
