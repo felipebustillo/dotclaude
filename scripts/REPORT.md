@@ -1,4 +1,4 @@
-# Update Monitor Report — 2026-07-20
+# Update Monitor Report — 2026-07-27
 
 ## official-docs (Claude Code Official Docs Index)
 **Estado:** Cambios detectados
@@ -20,7 +20,7 @@
 > - [Give Claude custom tools](https://code.claude.com/docs/en/agent-sdk/custom-tools.md): Define custom tools with the Claude Agent SDK's in-process MCP server so Claude can call your functions, hit your APIs, and perform domain-specific operations.
 > - [Rewind file changes with checkpointing](https://code.claude.com/docs/en/agent-sdk/file-checkpointing.md): Track file changes during agent sessions and restore files to any previous state
 > - [Intercept and control agent behavior with hooks](https://code.claude.com/docs/en/agent-sdk/hooks.md): Intercept and customize agent behavior at key execution points with hooks
-> ... (161 more lines)
+> ... (163 more lines)
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
@@ -44,39 +44,36 @@
 
 **Resumen:**
 > Release content updated:
-> ### v2.1.215
+> ### v2.1.220
 > ## What's changed
 > 
-> - Claude no longer runs the `/verify` and `/code-review` skills on its own; invoke them with `/verify` or `/code-review` when you want them
+> - Bug fixes and reliability improvements
 > 
 > 
-> ### v2.1.214
+> ### v2.1.219
 > ## What's changed
 > 
-> - Fixed single-segment `dir/**` allow rules like `Edit(src/**)` auto-approving writes to nested `dir/` directories anywhere in the tree instead of only `<cwd>/dir`
-> - Fixed a permission-check bypass affecting commands run in Windows PowerShell 5.1 sessions
-> - Fixed Bash permission checks to fail closed on file-descriptor redirect forms that bash parses differently than the permission analyzer
-> - Fixed Bash permission checks misjudging very long commands — commands over 10,000 cha
+> - Added Claude Opus 5 (`claude-opus-5`), now the default Opus model — 1M context, fast mode at $10/$50 per Mtok
+> - Added `sandbox.network.strictAllowlist` setting to deny non-allowlisted hosts for sandboxed commands without prompting
+> - Added `DirectoryAdded` hook that fires after `/add-dir` or the SDK `register_repo_root` control request registers a new working directory mid-session
+> - Added `mcp_server_errors` to the headless stream-json init event, listing `--mcp-config` entri
 > 
-> ### v2.1.212
+> ### v2.1.218
 > ## What's changed
 > 
-> - `/fork` now copies your conversation into a new background session (its own row in `claude agents`) while you keep working; the in-session subagent it used to launch is now `/subtask`
-> - Added `claude auto-mode reset` to restore the default auto-mode configuration, with a confirmation prompt (pass `--yes` to skip)
-> - Added a session-wide limit on WebSearch tool calls (default 200, tunable via `CLAUDE_CODE_MAX_WEB_SEARCHES_PER_SESSION`) to stop runaway search loops
+> - Changed `/code-review` to run as a background subagent, so review work no longer fills your conversation and keeps stacked slash commands as its review target
+> - Added screen-reader announcements of deleted text for word and line deletions (`Option+Delete`, `Ctrl+W`, `Cmd+Backspace`, `Ctrl+U`, `Ctrl+K`) in `--ax-screen-reader` mode
+> - Fixed Windows paths with `\u`-prefixed segments (like `C:\Users\unicorn`) being corrupted into CJK characters in tool inputs, which made those f
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
 - `guides/agents.md`
 - `guides/commands.md`
 - `guides/hooks.md`
-- `guides/rules.md`
+- `guides/memory.md`
 - `guides/settings.md`
-- `guides/skills.md`
 - `templates/agent-template.md`
 - `templates/command-template.md`
-- `templates/rule-template.md`
-- `templates/skill-template.md`
 
 ---
 
@@ -86,13 +83,9 @@
 
 **Resumen:**
 > Changelog updated:
-> ## 2.1.215
+> ## 2.1.220
 > 
-> - Claude no longer runs the `/verify` and `/code-review` skills on its own; invoke them with `/verify` or `/code-review` when you want them
-
-**Ficheros potencialmente afectados:**
-- `guides/skills.md`
-- `templates/skill-template.md`
+> - Bug fixes and reliability improvements
 
 ---
 
@@ -116,7 +109,7 @@
 > <br>
 > 
 > 
-> ... (444 more lines)
+> ... (447 more lines)
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
