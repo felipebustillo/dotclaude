@@ -1,8 +1,8 @@
 {
   "sources": {
     "official-docs": {
-      "hash": "739f2575bf9c979a104798c273e00b4168f364f48990c69c637ba796b71ea43a",
-      "last_checked": "2026-07-27T09:14:07.294685+00:00"
+      "hash": "d74a710a006140dfb91d14af6dcddb5ca1b9aff9b9e7abbb614cfcd9de664713",
+      "last_checked": "2026-08-03T09:14:32.532587+00:00"
     },
     "releases": {
       "hash": "0d4abc8cbbf5212747e6033cd4a0d133aba5262c37158d16b57b33b540c8ec9f",
@@ -17,9 +17,9 @@
       "last_checked": "2026-03-09T08:20:37.563589+00:00"
     },
     "awesome-list": {
-      "hash": "ff0afc2b5439d2d11fefde7dd8ffb169acbc79a782a8099242790645e34e9b64",
-      "last_checked": "2026-07-27T09:14:08.128733+00:00"
+      "hash": "1d19814e0a9b80f3d6b0497ad630550737d289c4de23383f1301e5e0f5de3b1a",
+      "last_checked": "2026-08-03T09:14:33.292183+00:00"
     }
   },
-  "last_run": "2026-07-27T09:14:08.128749+00:00"
+  "last_run": "2026-08-03T09:14:33.292200+00:00"
 }

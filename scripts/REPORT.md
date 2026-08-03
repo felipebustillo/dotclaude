@@ -1,4 +1,4 @@
-# Update Monitor Report — 2026-07-27
+# Update Monitor Report — 2026-08-03
 
 ## official-docs (Claude Code Official Docs Index)
 **Estado:** Cambios detectados
@@ -20,7 +20,7 @@
 > - [Give Claude custom tools](https://code.claude.com/docs/en/agent-sdk/custom-tools.md): Define custom tools with the Claude Agent SDK's in-process MCP server so Claude can call your functions, hit your APIs, and perform domain-specific operations.
 > - [Rewind file changes with checkpointing](https://code.claude.com/docs/en/agent-sdk/file-checkpointing.md): Track file changes during agent sessions and restore files to any previous state
 > - [Intercept and control agent behavior with hooks](https://code.claude.com/docs/en/agent-sdk/hooks.md): Intercept and customize agent behavior at key execution points with hooks
-> ... (163 more lines)
+> ... (165 more lines)
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
@@ -35,57 +35,6 @@
 - `templates/command-template.md`
 - `templates/rule-template.md`
 - `templates/skill-template.md`
-
----
-
-## releases (Claude Code Releases (latest 5))
-**Estado:** Cambios detectados
-**URL:** https://github.com/repos/anthropics/claude-code/releases?per_page=5
-
-**Resumen:**
-> Release content updated:
-> ### v2.1.220
-> ## What's changed
-> 
-> - Bug fixes and reliability improvements
-> 
-> 
-> ### v2.1.219
-> ## What's changed
-> 
-> - Added Claude Opus 5 (`claude-opus-5`), now the default Opus model — 1M context, fast mode at $10/$50 per Mtok
-> - Added `sandbox.network.strictAllowlist` setting to deny non-allowlisted hosts for sandboxed commands without prompting
-> - Added `DirectoryAdded` hook that fires after `/add-dir` or the SDK `register_repo_root` control request registers a new working directory mid-session
-> - Added `mcp_server_errors` to the headless stream-json init event, listing `--mcp-config` entri
-> 
-> ### v2.1.218
-> ## What's changed
-> 
-> - Changed `/code-review` to run as a background subagent, so review work no longer fills your conversation and keeps stacked slash commands as its review target
-> - Added screen-reader announcements of deleted text for word and line deletions (`Option+Delete`, `Ctrl+W`, `Cmd+Backspace`, `Ctrl+U`, `Ctrl+K`) in `--ax-screen-reader` mode
-> - Fixed Windows paths with `\u`-prefixed segments (like `C:\Users\unicorn`) being corrupted into CJK characters in tool inputs, which made those f
-
-**Ficheros potencialmente afectados:**
-- `examples/settings.json`
-- `guides/agents.md`
-- `guides/commands.md`
-- `guides/hooks.md`
-- `guides/memory.md`
-- `guides/settings.md`
-- `templates/agent-template.md`
-- `templates/command-template.md`
-
----
-
-## changelog (Claude Code Changelog)
-**Estado:** Cambios detectados
-**URL:** https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md
-
-**Resumen:**
-> Changelog updated:
-> ## 2.1.220
-> 
-> - Bug fixes and reliability improvements
 
 ---
 
@@ -109,7 +58,7 @@
 > <br>
 > 
 > 
-> ... (447 more lines)
+> ... (468 more lines)
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
