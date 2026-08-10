@@ -1,4 +1,4 @@
-# Update Monitor Report — 2026-08-03
+# Update Monitor Report — 2026-08-10
 
 ## official-docs (Claude Code Official Docs Index)
 **Estado:** Cambios detectados
@@ -18,9 +18,9 @@
 > - [Use Claude Code features in the SDK](https://code.claude.com/docs/en/agent-sdk/claude-code-features.md): Load project instructions, skills, hooks, and other Claude Code features into your SDK agents.
 > - [Track cost and usage](https://code.claude.com/docs/en/agent-sdk/cost-tracking.md): Learn how to track token usage, estimate costs, and configure prompt caching with the Claude Agent SDK.
 > - [Give Claude custom tools](https://code.claude.com/docs/en/agent-sdk/custom-tools.md): Define custom tools with the Claude Agent SDK's in-process MCP server so Claude can call your functions, hit your APIs, and perform domain-specific operations.
+> - [Examples](https://code.claude.com/docs/en/agent-sdk/examples.md): Find a complete, runnable Agent SDK project or a guided recipe in the Claude Cookbook that matches what you want to build.
 > - [Rewind file changes with checkpointing](https://code.claude.com/docs/en/agent-sdk/file-checkpointing.md): Track file changes during agent sessions and restore files to any previous state
-> - [Intercept and control agent behavior with hooks](https://code.claude.com/docs/en/agent-sdk/hooks.md): Intercept and customize agent behavior at key execution points with hooks
-> ... (165 more lines)
+> ... (176 more lines)
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
@@ -35,6 +35,58 @@
 - `templates/command-template.md`
 - `templates/rule-template.md`
 - `templates/skill-template.md`
+
+---
+
+## releases (Claude Code Releases (latest 5))
+**Estado:** Cambios detectados
+**URL:** https://github.com/repos/anthropics/claude-code/releases?per_page=5
+
+**Resumen:**
+> Release content updated:
+> ### v2.1.226
+> ## What's changed
+> 
+> - Bug fixes and reliability improvements
+> 
+> 
+> ### v2.1.225
+> ## What's changed
+> 
+> - Added gateway spend-limit support to Claude Code's usage warning; the limit-reached message now names the cap, its reset time, and the operator's message (requires the gateway on 2.1.225)
+> - Added a workspace trust prompt to `claude agents` for untrusted directories, matching the behavior of `claude`
+> - Fixed a transient 401 replacing a long-lived `CLAUDE_CODE_OAUTH_TOKEN` with a stored login's short-lived token, breaking headless sessions until restart
+> - Fixed MCP OAuth serve
+> 
+> ### v2.1.224
+> ## What's changed
+> 
+> - Added self-hosted environments: `claude self-hosted-runner` turns your own machines or containers into a place Claude Code web, mobile, and desktop sessions can run, on Team and Enterprise plans
+> - Added `archive` plugin source: install plugins from a zip over HTTPS without git or npm, with optional SHA-256 pinning
+> - Added a cancel-and-confirm step when removing an unavailable paste changes a command's text
+
+**Ficheros potencialmente afectados:**
+- `examples/settings.json`
+- `guides/agents.md`
+- `guides/commands.md`
+- `guides/hooks.md`
+- `guides/settings.md`
+- `guides/skills.md`
+- `templates/agent-template.md`
+- `templates/command-template.md`
+- `templates/skill-template.md`
+
+---
+
+## changelog (Claude Code Changelog)
+**Estado:** Cambios detectados
+**URL:** https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md
+
+**Resumen:**
+> Changelog updated:
+> ## 2.1.226
+> 
+> - Bug fixes and reliability improvements
 
 ---
 
@@ -58,7 +110,7 @@
 > <br>
 > 
 > 
-> ... (468 more lines)
+> ... (521 more lines)
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
