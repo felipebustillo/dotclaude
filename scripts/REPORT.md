@@ -1,4 +1,4 @@
-# Update Monitor Report — 2026-08-10
+# Update Monitor Report — 2026-08-17
 
 ## official-docs (Claude Code Official Docs Index)
 **Estado:** Cambios detectados
@@ -11,16 +11,16 @@
 > 
 > ## Docs
 > 
-> - [Use Claude Code with a screen reader](https://code.claude.com/docs/en/accessibility.md): Set up Claude Code for screen readers such as VoiceOver and NVDA, plus settings for screen magnifiers, reduced motion, and colorblind-friendly themes.
-> - [Set up Claude Code for your organization](https://code.claude.com/docs/en/admin-setup.md): A decision map for administrators deploying Claude Code, covering API providers, managed settings, policy enforcement, usage monitoring, and data handling.
-> - [Escalate hard decisions with the advisor tool](https://code.claude.com/docs/en/advisor.md): Pair your main model with a stronger advisor model that Claude consults at key moments during a task.
-> - [How the agent loop works](https://code.claude.com/docs/en/agent-sdk/agent-loop.md): Understand the message lifecycle, tool execution, context window, and architecture that power your SDK agents.
-> - [Use Claude Code features in the SDK](https://code.claude.com/docs/en/agent-sdk/claude-code-features.md): Load project instructions, skills, hooks, and other Claude Code features into your SDK agents.
-> - [Track cost and usage](https://code.claude.com/docs/en/agent-sdk/cost-tracking.md): Learn how to track token usage, estimate costs, and configure prompt caching with the Claude Agent SDK.
-> - [Give Claude custom tools](https://code.claude.com/docs/en/agent-sdk/custom-tools.md): Define custom tools with the Claude Agent SDK's in-process MCP server so Claude can call your functions, hit your APIs, and perform domain-specific operations.
-> - [Examples](https://code.claude.com/docs/en/agent-sdk/examples.md): Find a complete, runnable Agent SDK project or a guided recipe in the Claude Cookbook that matches what you want to build.
-> - [Rewind file changes with checkpointing](https://code.claude.com/docs/en/agent-sdk/file-checkpointing.md): Track file changes during agent sessions and restore files to any previous state
-> ... (176 more lines)
+> - [Overview](https://code.claude.com/docs/en/overview.md): Claude Code is an agentic coding tool that reads your codebase, edits files, runs commands, and integrates with your development tools. Available in your terminal, IDE, desktop app, and browser.
+> - [Quickstart](https://code.claude.com/docs/en/quickstart.md): Welcome to Claude Code!
+> - [Claude Code changelog](https://code.claude.com/docs/en/changelog.md): Release notes for Claude Code, including new features, improvements, and bug fixes by version.
+> - [How Claude Code works](https://code.claude.com/docs/en/how-claude-code-works.md): Understand the agentic loop, built-in tools, and how Claude Code interacts with your project.
+> - [Extend Claude Code](https://code.claude.com/docs/en/features-overview.md): Understand when to use CLAUDE.md, Skills, subagents, hooks, MCP, and plugins.
+> - [Explore the .claude directory](https://code.claude.com/docs/en/claude-directory.md): Where Claude Code reads CLAUDE.md, settings.json, hooks, skills, commands, subagents, workflows, rules, and auto memory. Explore the .claude directory in your project and ~/.claude in your home directory.
+> - [Explore the context window](https://code.claude.com/docs/en/context-window.md): An interactive simulation of how Claude Code's context window fills during a session. See what loads automatically, what each file read costs, and when rules and hooks fire.
+> - [How Claude Code uses prompt caching](https://code.claude.com/docs/en/prompt-caching.md): Claude Code manages prompt caching automatically. See why a model switch triggers a slow uncached turn, what `/compact` costs, why CLAUDE.md edits don't apply mid-session, and how to check your cache hit rate.
+> - [How Claude remembers your project](https://code.claude.com/docs/en/memory.md): Give Claude persistent instructions with CLAUDE.md files, and let Claude accumulate learnings automatically with auto memory.
+> ... (178 more lines)
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
@@ -44,37 +44,36 @@
 
 **Resumen:**
 > Release content updated:
-> ### v2.1.226
+> ### v2.1.233
 > ## What's changed
 > 
-> - Bug fixes and reliability improvements
+> - Added GitLab merge request URL support to the `--worktree` flag and the `claude agents` view (where MRs display as `!N`)
+> - Added an opt-in `forward_user_identity` apps gateway setting on Anthropic upstreams that sends the signed-in user's identity as headers, so a proxy behind the gateway can attribute spend per user
+> - Added opt-in memory cgroup support for Bash tool commands on Linux (`CLAUDE_CODE_TOOL_MEMORY_LIMIT`) so a runaway build can't stall the session
+> - Added `CLAUD
 > 
-> 
-> ### v2.1.225
+> ### v2.1.232
 > ## What's changed
 > 
-> - Added gateway spend-limit support to Claude Code's usage warning; the limit-reached message now names the cap, its reset time, and the operator's message (requires the gateway on 2.1.225)
-> - Added a workspace trust prompt to `claude agents` for untrusted directories, matching the behavior of `claude`
-> - Fixed a transient 401 replacing a long-lived `CLAUDE_CODE_OAUTH_TOKEN` with a stored login's short-lived token, breaking headless sessions until restart
-> - Fixed MCP OAuth serve
+> - Subagent forking is now on by default: a `subagent_type: "fork"` subagent inherits the full conversation and prompt cache, and non-teammate agent spawns in interactive sessions now run in the background by default
+> - Type `@` in the prompt to mention another Claude session by name; Claude then uses `SendMessage` to reach that session directly
+> - `SendMessage` now delivers to a bare name that exactly matches one live session, instead of asking to confirm with a ref first
+> - Inte
 > 
-> ### v2.1.224
+> ### v2.1.231
 > ## What's changed
 > 
-> - Added self-hosted environments: `claude self-hosted-runner` turns your own machines or containers into a place Claude Code web, mobile, and desktop sessions can run, on Team and Enterprise plans
-> - Added `archive` plugin source: install plugins from a zip over HTTPS without git or npm, with optional SHA-256 pinning
-> - Added a cancel-and-confirm step when removing an unavailable paste changes a command's text
+> - Fixed MCP OAuth sign-in failing with a redirect URI mismatch for servers that use a pre-registered OAuth client, such as Slack
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
 - `guides/agents.md`
 - `guides/commands.md`
 - `guides/hooks.md`
+- `guides/memory.md`
 - `guides/settings.md`
-- `guides/skills.md`
 - `templates/agent-template.md`
 - `templates/command-template.md`
-- `templates/skill-template.md`
 
 ---
 
@@ -84,9 +83,33 @@
 
 **Resumen:**
 > Changelog updated:
-> ## 2.1.226
+> ## 2.1.233
 > 
-> - Bug fixes and reliability improvements
+> - Added GitLab merge request URL support to the `--worktree` flag and the `claude agents` view (where MRs display as `!N`)
+> - Added an opt-in `forward_user_identity` apps gateway setting on Anthropic upstreams that sends the signed-in user's identity as headers, so a proxy behind the gateway can attribute spend per user
+> - Added opt-in memory cgroup support for Bash tool commands on Linux (`CLAUDE_CODE_TOOL_MEMORY_LIMIT`) so a runaway build can't stall the session
+> - Added `CLAUDE_CODE_WEBFETCH_CACHE_TTL_MS` environment variable to configure the WebFetch session URL cache TTL (default unchanged: 15 minutes)
+> - Fixed cloud sessions occasionally being marked as lost when the environment shut down while Claude was waiting on a permission prompt
+> - Fixed MCP v2 connections endlessly reopening the subscriptions/listen stream against servers that terminate long-held streams on a fixed timeout (e.g. serverless hosts)
+> - Fixed Notification hooks not firing for permission prompts when running under Claude Desktop or VS Code
+> - Fixed idle sessions on Linux sometimes keeping one CPU core at 100% when sandboxing is enabled
+> - Fixed bundled skill aliases like `/checkup` and `/review` reporting "Unknown command" in `-p` mode or with plugins/MCP loaded when a user or project skill shadows the bundled skill
+> - Fixed skill/command argument substitution to prevent argument values from being re-expanded as template markers
+> - Fixed Windows paths spelled with the NT `\??\` device prefix bypassing UNC path validation, closing an NTLM credential-leak vector
+> - Improved `claude self-hosted-runner` session start time: the session branch is now created without rewriting the working tree, and two server round trips no longer block the agent's launch
+> - Improved apps gateway error forwarding: 400/413 errors from Vertex, Foundry, and Claude Platform on AWS upstreams now carry the upstream's own message; fixes a bug with auto-compact on apps gateway
+
+**Ficheros potencialmente afectados:**
+- `examples/settings.json`
+- `guides/agents.md`
+- `guides/commands.md`
+- `guides/hooks.md`
+- `guides/memory.md`
+- `guides/settings.md`
+- `guides/skills.md`
+- `templates/agent-template.md`
+- `templates/command-template.md`
+- `templates/skill-template.md`
 
 ---
 
@@ -110,7 +133,7 @@
 > <br>
 > 
 > 
-> ... (521 more lines)
+> ... (527 more lines)
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
