@@ -1,25 +1,25 @@
 {
   "sources": {
     "official-docs": {
-      "hash": "52340f1e436aec85b17e2fee6147296479c6054c486079b7717dc8653760f2ff",
-      "last_checked": "2026-08-24T08:19:24.806424+00:00"
+      "hash": "63ecdcc8ae2951a7d8dd21374d1781a1e487ed9152138329d53abdffffd948ac",
+      "last_checked": "2026-08-31T08:25:07.803753+00:00"
     },
     "releases": {
-      "hash": "77efb741bc3e5c58f5d20e583b08c0bcdeb00cb4d9523c47de0e86a2eb4709fd",
-      "last_checked": "2026-08-24T08:19:25.293074+00:00"
+      "hash": "d2f72a11a791ffc9ddba3024e136fc9f5afe105090d5dfde1459c19623fe541a",
+      "last_checked": "2026-08-31T08:25:08.294073+00:00"
     },
     "changelog": {
-      "hash": "4f68473b23273f2485e1490748a7e6fd69600c982db13a6b14cdc16236309dfc",
-      "last_checked": "2026-08-24T08:19:25.758105+00:00"
+      "hash": "9eb2e5337236637c411436aec48fb75d105edb8cfa31fb7a50c73441dd263fb1",
+      "last_checked": "2026-08-31T08:25:08.456176+00:00"
     },
     "skills-repo": {
       "hash": "09eb98b16dd8ca03144f9f8d7f1e1d3c7c7868a71a4a6a446d085370a8174b7a",
       "last_checked": "2026-03-09T08:20:37.563589+00:00"
     },
     "awesome-list": {
-      "hash": "8e704946e81736a00dbc17ebdbad71461f02bb3fb0e93319d032e0b414eaeed1",
-      "last_checked": "2026-08-17T08:17:32.242803+00:00"
+      "hash": "76f5a829ad9f82c48bff1f85fd2d8ec5b980f9594499532d20b90462ecce72ca",
+      "last_checked": "2026-08-31T08:25:09.266843+00:00"
     }
   },
-  "last_run": "2026-08-24T08:19:26.364793+00:00"
+  "last_run": "2026-08-31T08:25:09.266856+00:00"
 }
