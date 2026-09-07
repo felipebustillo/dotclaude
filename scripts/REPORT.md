@@ -1,4 +1,4 @@
-# Update Monitor Report — 2026-08-31
+# Update Monitor Report — 2026-09-07
 
 ## official-docs (Claude Code Official Docs Index)
 **Estado:** Cambios detectados
@@ -44,37 +44,34 @@
 
 **Resumen:**
 > Release content updated:
-> ### v2.1.251
-> ## What's changed
-> 
-> - Added `PreModelSwitch` and `PostModelSwitch` hook events (block, confirm, or annotate a model switch); `SessionStart` resume hooks now receive session staleness and the estimated re-cache cost
-> - Added live streaming of a foreground subagent's tool calls and results to Remote Control clients (background subagents, the default, still show status only)
-> - Added a Spend limit bar to `/usage` and a `rate_limits.spend_limit` status line field for developers behind a Claude apps gat
-> 
-> ### v2.1.250
+> ### v2.1.263
 > ## What's changed
 > 
 > - Bug fixes and reliability improvements
 > 
 > 
-> ### v2.1.248
+> ### v2.1.261
 > ## What's changed
 > 
-> - Added `--restricted` (or `CLAUDE_CODE_RESTRICTED=1`): removes the built-in tools that run commands or code and `WebFetch` (unless named in `--tools`), keeps file tools inside the working directory, refuses `bypassPermissions`, and ignores user, project and local settings files
-> - Added `experimental.cacheTtl` (`"5m"` or `"1h"`) to agent frontmatter: a per-agent prompt cache TTL used when no subagent TTL setting is configured
-> - Added `claude self-hosted-runner --client-label <
+> - Added an "Organization policy" line to `/status` and `claude doctor` that says why your organization's policy could not be loaded, such as a proxy not passing the endpoint through
+> - Added `bashOutputMaxChars` and `taskOutputMaxChars` settings to raise how much command and background-task output Claude receives inline before it is saved to a file, up to 128K characters
+> - Added `--append-subagent-system-prompt-file` to read the subagent system prompt from a file, for prompts t
 > 
+> ### v2.1.260
+> ## What's changed
+> 
+> - Added a diff panel that opens beside the conversation in fullscreen mode and shows your uncommitted changes as Claude edits; toggle it with `/diff`
+> - Added a likely cause for prompt-cache misses (e.g. tool definitions or system prompt changed, idle past the TTL) to `/cost` and the status line's `prompt_cache` field
+> - Added `/reload-plugins` to headless sessions, so it appears in the Claude Code Desktop and SDK command lists
+> - Added a text form of `/advisor` (`/advisor`, `/ad
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
 - `guides/agents.md`
 - `guides/commands.md`
-- `guides/hooks.md`
-- `guides/rules.md`
 - `guides/settings.md`
 - `templates/agent-template.md`
 - `templates/command-template.md`
-- `templates/rule-template.md`
 
 ---
 
@@ -84,34 +81,9 @@
 
 **Resumen:**
 > Changelog updated:
-> ## 2.1.251
+> ## 2.1.263
 > 
-> - Added `PreModelSwitch` and `PostModelSwitch` hook events (block, confirm, or annotate a model switch); `SessionStart` resume hooks now receive session staleness and the estimated re-cache cost
-> - Added live streaming of a foreground subagent's tool calls and results to Remote Control clients (background subagents, the default, still show status only)
-> - Added a Spend limit bar to `/usage` and a `rate_limits.spend_limit` status line field for developers behind a Claude apps gateway with spend limits
-> - Added a per-session prompt-cache line to `/cost` (hit ratio, misses, tokens re-cached, warm/cold) and a matching `prompt_cache` object for status line scripts
-> - Added `attach`, `logs`, `stop`, `respawn`, and `rm` to `claude --help`; the `--resume` message for a running background session now names the exact `claude attach <id>` command
-> - Fixed file tools (Read, Write, Edit) following a symlink swapped inside the working directory after the permission check, which could read or write outside the approved location
-> - Fixed plugin commands declared in a marketplace entry being able to point outside the plugin directory; such paths are now rejected with a path-traversal error
-> - Fixed project settings being able to enable detailed beta tracing or raw API body logging, and a lower-scope beta tracing endpoint bypassing an OTLP collector pinned by managed settings or a host app
-> - Fixed the Workflow tool reading (and quoting in errors) a `scriptPath` outside what the session may read before the permission check ran
-> - Fixed Grep and Glob not applying `Read(...)` deny rules to files reached through a symlinked search path
-> - Fixed conversations getting stuck on "text content blocks must be non-empty" errors after a turn where the model produced only thinking
-> - Fixed the first launch on a fresh install starting in default mode instead of auto mode for accounts whose startup default is auto mode
-> - Fixed Opus 5 requests failing with "effort … is not supported when thinking is disabled" when effort was xhigh/max and thinking was turned off; effort is now sent as `high` in that case
-
-**Ficheros potencialmente afectados:**
-- `examples/settings.json`
-- `guides/agents.md`
-- `guides/commands.md`
-- `guides/hooks.md`
-- `guides/rules.md`
-- `guides/settings.md`
-- `guides/skills.md`
-- `templates/agent-template.md`
-- `templates/command-template.md`
-- `templates/rule-template.md`
-- `templates/skill-template.md`
+> - Bug fixes and reliability improvements
 
 ---
 
@@ -135,7 +107,7 @@
 > <br>
 > 
 > 
-> ... (530 more lines)
+> ... (551 more lines)
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
