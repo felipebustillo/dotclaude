@@ -1,4 +1,4 @@
-# Update Monitor Report — 2026-09-07
+# Update Monitor Report — 2026-09-14
 
 ## official-docs (Claude Code Official Docs Index)
 **Estado:** Cambios detectados
@@ -20,7 +20,7 @@
 > ### Core concepts
 > 
 > - [How Claude Code works](https://code.claude.com/docs/en/how-claude-code-works.md): Understand the agentic loop, built-in tools, and how Claude Code interacts with your project.
-> ... (340 more lines)
+> ... (341 more lines)
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
@@ -44,33 +44,32 @@
 
 **Resumen:**
 > Release content updated:
-> ### v2.1.263
+> ### v2.1.270
 > ## What's changed
 > 
-> - Bug fixes and reliability improvements
+> - Fixed read-only git commands in Bash unexpectedly asking for permission after a session had been running for a while (regression in 2.1.269)
 > 
 > 
-> ### v2.1.261
+> ### v2.1.269
 > ## What's changed
 > 
-> - Added an "Organization policy" line to `/status` and `claude doctor` that says why your organization's policy could not be loaded, such as a proxy not passing the endpoint through
-> - Added `bashOutputMaxChars` and `taskOutputMaxChars` settings to raise how much command and background-task output Claude receives inline before it is saved to a file, up to 128K characters
-> - Added `--append-subagent-system-prompt-file` to read the subagent system prompt from a file, for prompts t
+> - Added `claude plugin eval`: run a plugin's eval suite against Claude Code and get scored, reproducible results (JSON + HTML report); see `claude plugin eval --help`
+> - Added `/output-style [name]` to list and switch output styles, including over Remote Control and in cloud and other headless sessions
+> - Added a diff of the files a Bash command changed to the Bash tool result when the Bash tool handles file edits (setting `bashEditDiffEnabled`)
+> - Added `OTEL_METRICS_INCLUDE_REP
 > 
-> ### v2.1.260
+> ### v2.1.268
 > ## What's changed
 > 
-> - Added a diff panel that opens beside the conversation in fullscreen mode and shows your uncommitted changes as Claude edits; toggle it with `/diff`
-> - Added a likely cause for prompt-cache misses (e.g. tool definitions or system prompt changed, idle past the TTL) to `/cost` and the status line's `prompt_cache` field
-> - Added `/reload-plugins` to headless sessions, so it appears in the Claude Code Desktop and SDK command lists
-> - Added a text form of `/advisor` (`/advisor`, `/ad
+> - Added to the Claude apps gateway: with `pricing:` set in `gateway.yaml`, signed-in Claude Code clients receive the same rates through managed settings, so `/cost` and telemetry match the spend meter
+> - Added a startup warning for gateways when `access_control.allow_cidrs` is empty, and a one-time warning the first time a request arrives from a public address
+> - Added the `gatewayInternalNetworks` managed setting, letting administrators allow `/login` to a Claude apps gateway o
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
 - `guides/agents.md`
 - `guides/commands.md`
 - `guides/settings.md`
-- `templates/agent-template.md`
 - `templates/command-template.md`
 
 ---
@@ -81,9 +80,15 @@
 
 **Resumen:**
 > Changelog updated:
-> ## 2.1.263
+> ## 2.1.270
 > 
-> - Bug fixes and reliability improvements
+> - Fixed read-only git commands in Bash unexpectedly asking for permission after a session had been running for a while (regression in 2.1.269)
+
+**Ficheros potencialmente afectados:**
+- `examples/settings.json`
+- `guides/commands.md`
+- `guides/settings.md`
+- `templates/command-template.md`
 
 ---
 
@@ -107,7 +112,7 @@
 > <br>
 > 
 > 
-> ... (551 more lines)
+> ... (704 more lines)
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
