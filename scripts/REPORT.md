@@ -1,4 +1,4 @@
-# Update Monitor Report — 2026-09-14
+# Update Monitor Report — 2026-09-21
 
 ## official-docs (Claude Code Official Docs Index)
 **Estado:** Cambios detectados
@@ -20,7 +20,7 @@
 > ### Core concepts
 > 
 > - [How Claude Code works](https://code.claude.com/docs/en/how-claude-code-works.md): Understand the agentic loop, built-in tools, and how Claude Code interacts with your project.
-> ... (341 more lines)
+> ... (346 more lines)
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
@@ -44,33 +44,33 @@
 
 **Resumen:**
 > Release content updated:
-> ### v2.1.270
+> ### v2.1.278
 > ## What's changed
 > 
-> - Fixed read-only git commands in Bash unexpectedly asking for permission after a session had been running for a while (regression in 2.1.269)
+> - Changed auto mode for Claude API and Enterprise users, and on Bedrock, Vertex, Foundry and gateways, to default to the server-side classifier, which does not charge for classifier overhead (`CLAUDE_CODE_AUTO_MODE_SERVER=0` opts out on Bedrock, Vertex, Foundry and gateways); warns on billed fallback. See https://code.claude.com/docs/en/auto-mode-classifier-billing
+> - Added an `Auto mode server` row to `/status` showing whether this session's auto mode classifier runs on the se
 > 
-> 
-> ### v2.1.269
+> ### v2.1.277
 > ## What's changed
 > 
-> - Added `claude plugin eval`: run a plugin's eval suite against Claude Code and get scored, reproducible results (JSON + HTML report); see `claude plugin eval --help`
-> - Added `/output-style [name]` to list and switch output styles, including over Remote Control and in cloud and other headless sessions
-> - Added a diff of the files a Bash command changed to the Bash tool result when the Bash tool handles file edits (setting `bashEditDiffEnabled`)
-> - Added `OTEL_METRICS_INCLUDE_REP
+> - Added AGENTS.md support: in a project with no CLAUDE.md, Claude Code reads AGENTS.md instead; change it under "Project instructions" in `/config` (not yet on Bedrock, Vertex or Foundry)
+> - Added `CLAUDE_GATEWAY_PROXY_IS_EGRESS_BOUNDARY=1` for Claude apps gateways whose only egress is a forward proxy: every outbound request hands the proxy the hostname instead of resolving it locally
+> - Added an optional `headers:` map on Claude apps gateway upstreams, to send static headers to
 > 
-> ### v2.1.268
+> ### v2.1.276
 > ## What's changed
 > 
-> - Added to the Claude apps gateway: with `pricing:` set in `gateway.yaml`, signed-in Claude Code clients receive the same rates through managed settings, so `/cost` and telemetry match the spend meter
-> - Added a startup warning for gateways when `access_control.allow_cidrs` is empty, and a one-time warning the first time a request arrives from a public address
-> - Added the `gatewayInternalNetworks` managed setting, letting administrators allow `/login` to a Claude apps gateway o
+> - Fixed every request failing with `400 … Input tag 'advisor_20260301'` when `ANTHROPIC_BASE_URL` points at a proxy or gateway (2.1.275 regression)
+> 
+> 
+> ### v2.1.275
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
 - `guides/agents.md`
-- `guides/commands.md`
+- `guides/memory.md`
 - `guides/settings.md`
-- `templates/command-template.md`
+- `templates/agent-template.md`
 
 ---
 
@@ -80,53 +80,10 @@
 
 **Resumen:**
 > Changelog updated:
-> ## 2.1.270
+> ## 2.1.278
 > 
-> - Fixed read-only git commands in Bash unexpectedly asking for permission after a session had been running for a while (regression in 2.1.269)
-
-**Ficheros potencialmente afectados:**
-- `examples/settings.json`
-- `guides/commands.md`
-- `guides/settings.md`
-- `templates/command-template.md`
-
----
-
-## awesome-list (Awesome Claude Code)
-**Estado:** Cambios detectados
-**URL:** https://raw.githubusercontent.com/hesreallyhim/awesome-claude-code/main/README.md
-
-**Resumen:**
-> ![Awesome Claude Code](assets/awesome-claude-code-banner.png)
-> 
-> <!-- Awesome Claude Code -->
-> 
-> [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
-> 
-> _A hand-picked collection of the finest of resources for the most awesome of agents, [Claude Code](https://code.claude.com/docs/), the undisputed champion of coding companions, from the unstoppable team at [Anthropic PBC](https://github.com/anthropics/claude-code). A delectable showcase of top tier skills, ambidextrous agents, scintillating status lines, top notch developer tooling, and also we have plugins. Suitable for beginners and veterans, with an emphasis on code quality, security, and originality._
-> 
-> <br>
-> 
-> The current iteration of the list, such as you see it today, was launched with the express intent to highlight resources that were _not_ on the last iteration, and in particular to make selections from the list of recommendations. However, this is only temporary - resources will continue to be added over the coming weeks, and "legacy" resources will be migrated to the new format. So, if you had been featured on the list before, and you don't see your project now, that's the reason why - "legacy" resources that are still maintained and awesome will be added back in soon - _and_, in the meantime, they are also preserved (but will not be updated) in the [README_ALTERNATIVES](README_ALTERNATIVES/) directory.
-> 
-> <br>
-> 
-> 
-> ... (704 more lines)
-
-**Ficheros potencialmente afectados:**
-- `examples/settings.json`
-- `guides/agents.md`
-- `guides/commands.md`
-- `guides/hooks.md`
-- `guides/memory.md`
-- `guides/rules.md`
-- `guides/settings.md`
-- `guides/skills.md`
-- `templates/agent-template.md`
-- `templates/command-template.md`
-- `templates/rule-template.md`
-- `templates/skill-template.md`
+> - Changed auto mode for Claude API and Enterprise users, and on Bedrock, Vertex, Foundry and gateways, to default to the server-side classifier, which does not charge for classifier overhead (`CLAUDE_CODE_AUTO_MODE_SERVER=0` opts out on Bedrock, Vertex, Foundry and gateways); warns on billed fallback. See https://code.claude.com/docs/en/auto-mode-classifier-billing
+> - Added an `Auto mode server` row to `/status` showing whether this session's auto mode classifier runs on the server
 
 ---
 
