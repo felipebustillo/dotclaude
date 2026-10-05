@@ -1,4 +1,4 @@
-# Update Monitor Report — 2026-09-28
+# Update Monitor Report — 2026-10-05
 
 ## official-docs (Claude Code Official Docs Index)
 **Estado:** Cambios detectados
@@ -20,7 +20,7 @@
 > ### Core concepts
 > 
 > - [How Claude Code works](https://code.claude.com/docs/en/how-claude-code-works.md): Understand the agentic loop, built-in tools, and how Claude Code interacts with your project.
-> ... (376 more lines)
+> ... (395 more lines)
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
@@ -44,34 +44,36 @@
 
 **Resumen:**
 > Release content updated:
-> ### v2.1.283
+> ### v2.1.289
 > ## What's changed
 > 
-> - Added `x-claude-code-prompt-id` to the gateway hint headers so LLM gateways can group the requests that serve one user prompt; opt in with `CLAUDE_CODE_GATEWAY_HINT_HEADERS=1`
-> - Added `availableModelsMatch` managed setting: with `"exact"`, an `availableModels` entry allows only the model version it names, so new releases stay blocked until listed
-> - Added `deniedModels` managed setting to block specific models, even when `availableModels` allows them
-> - Added MCP tool, WebFetc
+> - Fixed a deny or ask rule on a nested part of a compound shell command not holding over a user-installed mod's approval on managed machines
+> - Fixed the terminal freezing on short code blocks with many unclosed `<script>` tags or deeply nested `${` substitutions
+> - Fixed `Read` deny rules not applying to files @-mentioned, changed, or selected in the IDE through a symlink
+> - [VSCode] Reverted a 2.1.288 change to `claude auth status` that may have made sign-outs more frequent
+> - I
 > 
-> ### v2.1.282
+> ### v2.1.288
 > ## What's changed
 > 
-> - Added a `maxProseWidth` setting that caps the width of Claude's prose in wide terminals while tables and code blocks keep the full width
-> - Added a startup notice, and `/status` and `claude doctor` entries, listing telemetry variables in a project's settings files that were ignored or that turned telemetry off
-> - Added the `allowClaudeInChromeWithManagedMcp` managed setting to let `claude --chrome` run alongside an exclusive `managed-mcp.json`; the error shown when Chrome is b
+> - Added `$.ui.selection()` for mods: returns the text you last selected in fullscreen mode and, when the selection lies within one transcript row, that row
+> - Added a built-in `gh api` to cloud sessions whose image has no GitHub CLI, and fixed the built-in sending control characters from file names, jq filters or GitHub errors to the terminal
+> - Added recovery for a prompt cleared with Ctrl+C: pressing Up on the empty prompt brings the draft back, including pasted text and image
 > 
-> ### v2.1.281
+> ### v2.1.287
 > ## What's changed
 > 
-> - Added Claude apps gateway support for newer Claude Desktop keys in `desktop` policy blocks, including `blockReadsOutsideWorkingDirectories` and `disableBypassPermissionsMode`
-> - Added `assume_role` on Claude apps gateway Bedrock upstreams: the gateway calls Bedrock as an IAM role it assumes through STS, in another AWS account if needed, optionally one session per developer
+> - Added Claude Mods: plugins may now modify deeper behavior
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
 - `guides/agents.md`
-- `guides/hooks.md`
+- `guides/commands.md`
+- `guides/rules.md`
 - `guides/settings.md`
-- `guides/skills.md`
-- `templates/skill-template.md`
+- `templates/agent-template.md`
+- `templates/command-template.md`
+- `templates/rule-template.md`
 
 ---
 
@@ -81,21 +83,54 @@
 
 **Resumen:**
 > Changelog updated:
-> ## 2.1.283
+> ## 2.1.289
 > 
-> - Added `x-claude-code-prompt-id` to the gateway hint headers so LLM gateways can group the requests that serve one user prompt; opt in with `CLAUDE_CODE_GATEWAY_HINT_HEADERS=1`
-> - Added `availableModelsMatch` managed setting: with `"exact"`, an `availableModels` entry allows only the model version it names, so new releases stay blocked until listed
-> - Added `deniedModels` managed setting to block specific models, even when `availableModels` allows them
-> - Added MCP tool, WebFetch and WebSearch outputs to the `tool.output` OpenTelemetry span event when `OTEL_LOG_TOOL_CONTENT=1`
-> - Added `/doctor prompt-audit` (also `/checkup prompt-audit`) to audit your CLAUDE.md files, skills, agents and commands for prompting patterns written for older models
-> - Added click-to-expand for truncated messages from your other sessions in fullscreen mode
-> - Added `path` to `--plugin-dir` load-failure entries in the stream-json `system/init` `plugin_errors`, naming the directory that did not load
-> - Added an opt-in `load_test_mode` block to the Claude apps gateway config: requests are built and signed but not sent upstream, and clients get a canned reply, so a deployment can be load tested
-> - Added a `mantle` upstream provider to the Claude apps gateway for Amazon Bedrock's Mantle endpoint
-> - Fixed SDK sessions losing a deferred tool call or finished tool result when a turn ended early, a held approval prompt after a worker restart, and a non-streaming fallback's `result.usage`
-> - Fixed MCP progress notifications being discarded once a long-running tool call moved to the background; the background task now shows the latest progress
-> - Fixed stdio MCP servers being left running when the session ended while they were still starting
-> - Fixed a brief HTTP 404 from a stateless remote MCP server (for example a proxy mid-redeploy) leaving that server unusable for the rest of the session while still shown as connected
+> - Fixed a deny or ask rule on a nested part of a compound shell command not holding over a user-installed mod's approval on managed machines
+> - Fixed the terminal freezing on short code blocks with many unclosed `<script>` tags or deeply nested `${` substitutions
+> - Fixed `Read` deny rules not applying to files @-mentioned, changed, or selected in the IDE through a symlink
+> - [VSCode] Reverted a 2.1.288 change to `claude auth status` that may have made sign-outs more frequent
+> - Improved how quickly large files open in a plugin code pane by laying the highlighted view out once at its final width
+> - Fixed `plugin list`, `plugin eval` and `plugin update` showing a stale copy of a plugin installed from a local folder marketplace, and hot reload for a symlinked `--plugin-dir`
+> - Fixed installed mods not loading in the first session after an upgrade
+> - Fixed a plugin's rows above the prompt showing a stale row while the Background tasks dialog was open in fullscreen
+> - Fixed plugin panes drawing nothing when a link used a localhost address, an `@` in its path, an uppercase host or a `file:` path
+> - Fixed a user-installed plugin being able to rewrite the descriptions of an organization-managed MCP server's sign-in tools
+> - Fixed a freeze or forced quit at launch when a plugin drew a Box with a border style the terminal does not know
+> - Fixed supervised and background sessions ending when a plugin's on-screen handler threw asynchronously
+> - Fixed sessions ending with an interface error when a plugin region with no height kept growing
+
+**Ficheros potencialmente afectados:**
+- `guides/agents.md`
+- `guides/commands.md`
+- `guides/hooks.md`
+- `guides/rules.md`
+- `templates/agent-template.md`
+- `templates/command-template.md`
+- `templates/rule-template.md`
+
+---
+
+## awesome-list (Awesome Claude Code)
+**Estado:** Cambios detectados
+**URL:** https://raw.githubusercontent.com/hesreallyhim/awesome-claude-code/main/README.md
+
+**Resumen:**
+> ![Awesome Claude Code](assets/awesome-claude-code-banner.png)
+> 
+> <!-- Awesome Claude Code -->
+> 
+> [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
+> 
+> _A hand-picked collection of the finest of resources for the most awesome of agents, [Claude Code](https://code.claude.com/docs/), the undisputed champion of coding companions, from the unstoppable team at [Anthropic PBC](https://github.com/anthropics/claude-code). A delectable showcase of top tier skills, ambidextrous agents, scintillating status lines, top notch developer tooling, and also we have plugins. Suitable for beginners and veterans, with an emphasis on code quality, security, and originality._
+> 
+> <br>
+> 
+> The current iteration of the list, such as you see it today, was launched with the express intent to highlight resources that were _not_ on the last iteration, and in particular to make selections from the list of recommendations. However, this is only temporary - resources will continue to be added over the coming weeks, and "legacy" resources will be migrated to the new format. So, if you had been featured on the list before, and you don't see your project now, that's the reason why - "legacy" resources that are still maintained and awesome will be added back in soon - _and_, in the meantime, they are also preserved (but will not be updated) in the [README_ALTERNATIVES](README_ALTERNATIVES/) directory.
+> 
+> <br>
+> 
+> 
+> ... (710 more lines)
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
