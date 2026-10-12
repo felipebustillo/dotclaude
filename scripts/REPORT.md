@@ -1,4 +1,4 @@
-# Update Monitor Report — 2026-10-05
+# Update Monitor Report — 2026-10-12
 
 ## official-docs (Claude Code Official Docs Index)
 **Estado:** Cambios detectados
@@ -11,16 +11,16 @@
 > 
 > ## Getting started
 > 
-> ### Getting started
+> ### Overview
+> 
+> #### Getting started
 > 
 > - [Overview](https://code.claude.com/docs/en/overview.md): Claude Code is an agentic coding tool that reads your codebase, edits files, runs commands, and integrates with your development tools. Available in your terminal, IDE, desktop app, and browser.
-> - [Quickstart](https://code.claude.com/docs/en/quickstart.md): Welcome to Claude Code!
+> - [Quickstart](https://code.claude.com/docs/en/quickstart.md): Install Claude Code in your terminal, sign in, and use the CLI to explore your codebase and make your first code change.
 > - [Claude Code changelog](https://code.claude.com/docs/en/changelog.md): Release notes for Claude Code, including new features, improvements, and bug fixes by version.
 > 
-> ### Core concepts
-> 
-> - [How Claude Code works](https://code.claude.com/docs/en/how-claude-code-works.md): Understand the agentic loop, built-in tools, and how Claude Code interacts with your project.
-> ... (395 more lines)
+> #### Core concepts
+> ... (551 more lines)
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
@@ -44,36 +44,35 @@
 
 **Resumen:**
 > Release content updated:
-> ### v2.1.289
+> ### v2.1.296
 > ## What's changed
 > 
-> - Fixed a deny or ask rule on a nested part of a compound shell command not holding over a user-installed mod's approval on managed machines
-> - Fixed the terminal freezing on short code blocks with many unclosed `<script>` tags or deeply nested `${` substitutions
-> - Fixed `Read` deny rules not applying to files @-mentioned, changed, or selected in the IDE through a symlink
-> - [VSCode] Reverted a 2.1.288 change to `claude auth status` that may have made sign-outs more frequent
-> - I
+> - Added a `code` key to the Claude apps gateway's `managed.policies[]`: the same settings as `cli`, also applied in Claude Desktop's Code tab; beside `desktop`, it turns on Claude Desktop's gateway mode
+> - Added `autoCompactWindow` to subagent frontmatter and `--agents` definitions, so a subagent can auto-compact earlier than the main conversation's window
+> - Added `CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL` to run every workflow agent on one model while other subagents keep theirs
+> - 
 > 
-> ### v2.1.288
+> ### v2.1.295
 > ## What's changed
 > 
-> - Added `$.ui.selection()` for mods: returns the text you last selected in fullscreen mode and, when the selection lies within one transcript row, that row
-> - Added a built-in `gh api` to cloud sessions whose image has no GitHub CLI, and fixed the built-in sending control characters from file names, jq filters or GitHub errors to the terminal
-> - Added recovery for a prompt cleared with Ctrl+C: pressing Up on the empty prompt brings the draft back, including pasted text and image
+> - Added `onFailure: "block"` for command and HTTP hooks: a hook that can't start, times out, or exits with an unexpected code blocks the action instead of letting it through
+> - Added Program Status Protocol (OSC 7501) support: terminals that implement it can show whether Claude Code is working, waiting on you, or done
+> - Added quoted text to the `/copy` picker, so a drafted message copies without its `>` markers
+> - Added a warning to `claude plugin install`, `enable`, `disable` a
 > 
-> ### v2.1.287
+> ### v2.1.294
 > ## What's changed
 > 
-> - Added Claude Mods: plugins may now modify deeper behavior
+> - Fixed `prompt` and `agent` hooks written as instructions (such as "Block commands that...") allowing what they should block
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
 - `guides/agents.md`
 - `guides/commands.md`
-- `guides/rules.md`
+- `guides/hooks.md`
 - `guides/settings.md`
 - `templates/agent-template.md`
 - `templates/command-template.md`
-- `templates/rule-template.md`
 
 ---
 
@@ -83,30 +82,35 @@
 
 **Resumen:**
 > Changelog updated:
-> ## 2.1.289
+> ## 2.1.296
 > 
-> - Fixed a deny or ask rule on a nested part of a compound shell command not holding over a user-installed mod's approval on managed machines
-> - Fixed the terminal freezing on short code blocks with many unclosed `<script>` tags or deeply nested `${` substitutions
-> - Fixed `Read` deny rules not applying to files @-mentioned, changed, or selected in the IDE through a symlink
-> - [VSCode] Reverted a 2.1.288 change to `claude auth status` that may have made sign-outs more frequent
-> - Improved how quickly large files open in a plugin code pane by laying the highlighted view out once at its final width
-> - Fixed `plugin list`, `plugin eval` and `plugin update` showing a stale copy of a plugin installed from a local folder marketplace, and hot reload for a symlinked `--plugin-dir`
-> - Fixed installed mods not loading in the first session after an upgrade
-> - Fixed a plugin's rows above the prompt showing a stale row while the Background tasks dialog was open in fullscreen
-> - Fixed plugin panes drawing nothing when a link used a localhost address, an `@` in its path, an uppercase host or a `file:` path
-> - Fixed a user-installed plugin being able to rewrite the descriptions of an organization-managed MCP server's sign-in tools
-> - Fixed a freeze or forced quit at launch when a plugin drew a Box with a border style the terminal does not know
-> - Fixed supervised and background sessions ending when a plugin's on-screen handler threw asynchronously
-> - Fixed sessions ending with an interface error when a plugin region with no height kept growing
+> - Added a `code` key to the Claude apps gateway's `managed.policies[]`: the same settings as `cli`, also applied in Claude Desktop's Code tab; beside `desktop`, it turns on Claude Desktop's gateway mode
+> - Added `autoCompactWindow` to subagent frontmatter and `--agents` definitions, so a subagent can auto-compact earlier than the main conversation's window
+> - Added `CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL` to run every workflow agent on one model while other subagents keep theirs
+> - Added `CLAUDE_CODE_OVERLOADED_RETRY_MAX_DELAY_MS` environment variable to set a longer maximum delay for the backoff when retrying an overloaded (529) request
+> - Added a note in `/plugin` on a plugin whose hooks are left out because another enabled plugin has the same name
+> - Added an `allow_large` option to the Read tool so Claude can read a text file past the usual size limits in one call when it needs the whole file and the context has room
+> - Fixed managed-settings `PreToolUse` hooks that deny a tool call with `"continue": false`, and managed `prompt` hooks that block one, refusing the call but not ending the turn
+> - Fixed PostToolUse hooks in managed settings not applying `updatedMCPToolOutput` in some sessions
+> - Fixed headless sessions starting a folder's `.mcp.json` or plugin MCP server that was switched off for that folder, after changing directory or reloading plugins
+> - Fixed a Claude apps gateway that serves `allowedProviders` with `"gateway"` locking out laptops that name that gateway in user settings
+> - Fixed a saved Claude apps gateway sign-in being ignored on machines whose managed settings set `forceLoginMethod` to `gateway` with no `forceLoginGatewayUrl` (regression in 2.1.295)
+> - Fixed `--teleport` opening an empty conversation when the session's history could not be read
+> - Fixed token counts for Haiku 5.5 and other models that take only adaptive thinking, which failed behind some gateways and were counted with budget thinking elsewhere
 
 **Ficheros potencialmente afectados:**
+- `examples/settings.json`
 - `guides/agents.md`
 - `guides/commands.md`
 - `guides/hooks.md`
+- `guides/memory.md`
 - `guides/rules.md`
+- `guides/settings.md`
+- `guides/skills.md`
 - `templates/agent-template.md`
 - `templates/command-template.md`
 - `templates/rule-template.md`
+- `templates/skill-template.md`
 
 ---
 
@@ -130,7 +134,7 @@
 > <br>
 > 
 > 
-> ... (710 more lines)
+> ... (821 more lines)
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
