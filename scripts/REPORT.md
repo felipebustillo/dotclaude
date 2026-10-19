@@ -1,4 +1,4 @@
-# Update Monitor Report — 2026-10-12
+# Update Monitor Report — 2026-10-19
 
 ## official-docs (Claude Code Official Docs Index)
 **Estado:** Cambios detectados
@@ -20,7 +20,7 @@
 > - [Claude Code changelog](https://code.claude.com/docs/en/changelog.md): Release notes for Claude Code, including new features, improvements, and bug fixes by version.
 > 
 > #### Core concepts
-> ... (551 more lines)
+> ... (570 more lines)
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
@@ -44,35 +44,34 @@
 
 **Resumen:**
 > Release content updated:
-> ### v2.1.296
+> ### v2.1.303
 > ## What's changed
 > 
-> - Added a `code` key to the Claude apps gateway's `managed.policies[]`: the same settings as `cli`, also applied in Claude Desktop's Code tab; beside `desktop`, it turns on Claude Desktop's gateway mode
-> - Added `autoCompactWindow` to subagent frontmatter and `--agents` definitions, so a subagent can auto-compact earlier than the main conversation's window
-> - Added `CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL` to run every workflow agent on one model while other subagents keep theirs
-> - 
+> - Bug fixes and reliability improvements
 > 
-> ### v2.1.295
+> 
+> ### v2.1.302
 > ## What's changed
 > 
-> - Added `onFailure: "block"` for command and HTTP hooks: a hook that can't start, times out, or exits with an unexpected code blocks the action instead of letting it through
-> - Added Program Status Protocol (OSC 7501) support: terminals that implement it can show whether Claude Code is working, waiting on you, or done
-> - Added quoted text to the `/copy` picker, so a drafted message copies without its `>` markers
-> - Added a warning to `claude plugin install`, `enable`, `disable` a
+> - Added `CLAUDE_CODE_AUTO_MODE_MODEL` to choose the model the client-side auto mode classifier uses; it does not change the model for server-side auto mode
+> - Added an `Idle compaction` row to `/config` for turning idle compaction off or back on; the notices shown after an idle compaction now say how to turn it off
+> - Added a notice to `/design-sync` and `/design-login` that standalone Claude Design (claude.ai/design) closes by December 14, 2026
+> - Fixed a "Prompt is too long" er
 > 
-> ### v2.1.294
+> ### v2.1.301
 > ## What's changed
 > 
-> - Fixed `prompt` and `agent` hooks written as instructions (such as "Block commands that...") allowing what they should block
+> - Added `CLAUDE_CODE_RETRY_WATCHDOG_MAX_USAGE_LIMIT_WAIT_MS` so unattended retry mode (`CLAUDE_CODE_RETRY_WATCHDOG`) ends a request at a usage limit that resets too far away instead of waiting
+> - Added OpenTelemetry tracing guidance to the `claude-api` skill, including setting up trace destinations with the `ant` CLI
+> - Added the `%` motion to vim mode: jump to the matching bracket, alone or with d/c/y
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
 - `guides/agents.md`
-- `guides/commands.md`
-- `guides/hooks.md`
 - `guides/settings.md`
+- `guides/skills.md`
 - `templates/agent-template.md`
-- `templates/command-template.md`
+- `templates/skill-template.md`
 
 ---
 
@@ -82,35 +81,9 @@
 
 **Resumen:**
 > Changelog updated:
-> ## 2.1.296
+> ## 2.1.303
 > 
-> - Added a `code` key to the Claude apps gateway's `managed.policies[]`: the same settings as `cli`, also applied in Claude Desktop's Code tab; beside `desktop`, it turns on Claude Desktop's gateway mode
-> - Added `autoCompactWindow` to subagent frontmatter and `--agents` definitions, so a subagent can auto-compact earlier than the main conversation's window
-> - Added `CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL` to run every workflow agent on one model while other subagents keep theirs
-> - Added `CLAUDE_CODE_OVERLOADED_RETRY_MAX_DELAY_MS` environment variable to set a longer maximum delay for the backoff when retrying an overloaded (529) request
-> - Added a note in `/plugin` on a plugin whose hooks are left out because another enabled plugin has the same name
-> - Added an `allow_large` option to the Read tool so Claude can read a text file past the usual size limits in one call when it needs the whole file and the context has room
-> - Fixed managed-settings `PreToolUse` hooks that deny a tool call with `"continue": false`, and managed `prompt` hooks that block one, refusing the call but not ending the turn
-> - Fixed PostToolUse hooks in managed settings not applying `updatedMCPToolOutput` in some sessions
-> - Fixed headless sessions starting a folder's `.mcp.json` or plugin MCP server that was switched off for that folder, after changing directory or reloading plugins
-> - Fixed a Claude apps gateway that serves `allowedProviders` with `"gateway"` locking out laptops that name that gateway in user settings
-> - Fixed a saved Claude apps gateway sign-in being ignored on machines whose managed settings set `forceLoginMethod` to `gateway` with no `forceLoginGatewayUrl` (regression in 2.1.295)
-> - Fixed `--teleport` opening an empty conversation when the session's history could not be read
-> - Fixed token counts for Haiku 5.5 and other models that take only adaptive thinking, which failed behind some gateways and were counted with budget thinking elsewhere
-
-**Ficheros potencialmente afectados:**
-- `examples/settings.json`
-- `guides/agents.md`
-- `guides/commands.md`
-- `guides/hooks.md`
-- `guides/memory.md`
-- `guides/rules.md`
-- `guides/settings.md`
-- `guides/skills.md`
-- `templates/agent-template.md`
-- `templates/command-template.md`
-- `templates/rule-template.md`
-- `templates/skill-template.md`
+> - Bug fixes and reliability improvements
 
 ---
 
@@ -134,7 +107,7 @@
 > <br>
 > 
 > 
-> ... (821 more lines)
+> ... (860 more lines)
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
