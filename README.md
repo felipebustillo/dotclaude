@@ -65,6 +65,7 @@ Starting points for creating your own:
 |---------|-------------|
 | [settings.json](examples/settings.json) | Recommended settings with safe permissions |
 | [statusline-command.sh](examples/statusline-command.sh) | Catppuccin Mocha status line for the terminal |
+| [statusline-command-macos.sh](examples/statusline-command-macos.sh) | macOS port of the status line with plain ANSI colors |
 
 ## Status Line
 
@@ -82,6 +83,29 @@ Segments:
 5. **Claude Max limits** — 5-hour and 7-day usage % with reset countdown
 
 Requires Claude Max subscription. Usage data is cached with stale indicators.
+
+### macOS variant
+
+[`statusline-command-macos.sh`](examples/statusline-command-macos.sh) shows the same segments, adapted for macOS:
+
+- BSD `stat -f` and `date -j` instead of the GNU `stat -c` and `date -d`
+- OAuth token read from the macOS Keychain (`Claude Code-credentials`), since Claude Code on macOS stores no `~/.claude/.credentials.json`
+- Plain ANSI colors that follow the terminal theme, and no Nerd Font glyphs
+- Usage cached for 1 minute in `~/.claude/cache/` (stale marker after 3 minutes, hidden after 30)
+- Compatible with the stock macOS Bash 3.2
+
+Install it with:
+
+```bash
+cp examples/statusline-command-macos.sh ~/.claude/statusline-command.sh
+chmod +x ~/.claude/statusline-command.sh
+```
+
+and in `~/.claude/settings.json`:
+
+```json
+"statusLine": { "type": "command", "command": "~/.claude/statusline-command.sh" }
+```
 
 ## Staying Up to Date
 
