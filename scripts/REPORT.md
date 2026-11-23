@@ -1,4 +1,4 @@
-# Update Monitor Report — 2026-11-16
+# Update Monitor Report — 2026-11-23
 
 ## official-docs (Claude Code Official Docs Index)
 **Estado:** Cambios detectados
@@ -20,7 +20,7 @@
 > - [Claude Code changelog](https://code.claude.com/docs/en/changelog.md): Release notes for Claude Code, including new features, improvements, and bug fixes by version.
 > 
 > #### Core concepts
-> ... (542 more lines)
+> ... (398 more lines)
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
@@ -44,32 +44,39 @@
 
 **Resumen:**
 > Release content updated:
-> ### v2.1.325
+> ### v2.1.330
 > ## What's changed
 > 
-> - Fixed a security issue in how zstd-compressed responses are decoded
-> - Added a spinner tip in VS Code and similar integrated terminals about re-running a notebook cell, shown once Claude has read or edited a Jupyter notebook
-> - Added a line under the error shown when your organization's policy blocks a request, saying how to continue: run `/rewind` and change the message, or run `/clear`
-> - Added a note for Claude when a sandboxed `git checkout`, `git stash` or autostash pull c
+> - Added sign-in to organizations managed in Anthropic's Enterprise Admin Console: after `claude auth login`, Claude Code applies the organization's settings and uses its cloud provider or gateway
+> - Added easel, a built-in mod that draws charts when asked and under MCP metrics results, on Pro, Max and, where available, Team and Enterprise on macOS and Linux; turn automatic charts off in `/config`
+> - Added `CLAUDE_CODE_FULL_SIGN_IN_LINK=1` to print the full sign-in link, if the s
 > 
-> ### v2.1.323
+> ### v2.1.329
 > ## What's changed
 > 
-> - Added Code Mode, an experimental opt-in in which Claude writes JavaScript to call its tools; see https://code.claude.com/docs/en/code-mode to turn it on, or to turn it off for an organization
-> - Added `engines["claude-code"]` to `plugin.json`: plugins outside their stated Claude Code version range are not installed, updated or loaded, and install and update pick the newest version that fits
-> - Added type checking of a plugin's TypeScript hooks module to `claude plugin validate
+> - Added a trust dialog warning that says where a folder's hooks are declared
+> - Added a warning in the conversation, in Claude Desktop and other non-interactive hosts, when hooks in managed settings fail to load
+> - Added this session's scheduled tasks, `/loop` wakeups, the goal and this conversation's forks to `/tasks`; x stops one after asking
+> - Added a "Server message" row to a server's page in `/mcp` that shows the JSON-RPC error message of a remote HTTP MCP server that refus
 > 
-> ### v2.1.322
+> ### v2.1.328
 > ## What's changed
 > 
-> - Added fast mode on Vertex in the global, us and eu regions, falling back to standard speed if Vertex refuses it
-> 
+> - Added auto mode for Claude Opus 4.6 and Sonnet 4.6 on Amazon Bedrock, Google Cloud's Agent Platform, Microsoft Foundry and Claude apps gateway; interactive sessions with no permission mode start in it
+> - Added `"onFailure": "block"` for `mcp_tool` hooks, as for command and HTTP hooks: a hook whose call fails blocks the action
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
 - `guides/agents.md`
+- `guides/commands.md`
 - `guides/hooks.md`
+- `guides/rules.md`
 - `guides/settings.md`
+- `guides/skills.md`
+- `templates/agent-template.md`
+- `templates/command-template.md`
+- `templates/rule-template.md`
+- `templates/skill-template.md`
 
 ---
 
@@ -79,27 +86,28 @@
 
 **Resumen:**
 > Changelog updated:
-> ## 2.1.325
+> ## 2.1.330
 > 
-> - Fixed a security issue in how zstd-compressed responses are decoded
-> - Added a spinner tip in VS Code and similar integrated terminals about re-running a notebook cell, shown once Claude has read or edited a Jupyter notebook
-> - Added a line under the error shown when your organization's policy blocks a request, saying how to continue: run `/rewind` and change the message, or run `/clear`
-> - Added a note for Claude when a sandboxed `git checkout`, `git stash` or autostash pull cannot update protected files such as those in `.claude`
-> - Fixed `/security-review` and skills' inline git commands stopping with an error in worktrees of bare repositories, `--separate-git-dir` checkouts and Android `repo` checkouts
-> - Fixed subagents with their own model being moved to the plan-mode model when the model setting is `opusplan` or `haiku`
-> - Fixed subagents on a different model sizing file reads and MCP results with the main session's model
-> - Fixed sessions on many third-party gateways and Foundry stopping with a context length error on every turn instead of compacting
-> - Fixed recent turns sometimes going missing from a resumed session after Claude Code stopped without a clean exit
-> - Fixed shell commands running in the launch directory after the working directory was deleted; the command now fails with a message and can be re-issued
-> - Fixed an approved plan edit being lost when the `plansDirectory` folder can't take it: the plan is now saved in the default plans folder, and a warning says where and why
-> - Fixed a saved `sonnet[1m]` model setting being rewritten on a new install to a model id the API rejects
-> - Fixed focus view hiding the reply to your prompt when a scheduled task replied after it
+> - Added sign-in to organizations managed in Anthropic's Enterprise Admin Console: after `claude auth login`, Claude Code applies the organization's settings and uses its cloud provider or gateway
+> - Added easel, a built-in mod that draws charts when asked and under MCP metrics results, on Pro, Max and, where available, Team and Enterprise on macOS and Linux; turn automatic charts off in `/config`
+> - Added `CLAUDE_CODE_FULL_SIGN_IN_LINK=1` to print the full sign-in link, if the short one shows an error or a script reads values from it
+> - Self-hosted runner: Added `--start-dir` / `SELF_HOSTED_RUNNER_START_DIR` to have Claude start its work in a folder of a repository, while settings and hooks load as without it
+> - Added a notice in cloud and self-hosted runner sessions when a plugin marketplace can't be fetched because its repository isn't one of the session's
+> - Self-hosted runner: Added a notice when Anthropic-managed git refuses a plugin's own repository, naming the plugin and what to do
+> - Added `commandPrinted` to `claude plugin install --json` results, true when the plugin's install command wrote to stderr, and `commandFailed` when it exited with an error, was killed or timed out
+> - Added `claude_code_self_hosted_runner_order_to_registered_seconds` to the self-hosted runner's `/metrics`: seconds from work order issued to registration accepted, on orchestrator-spawned runners
+> - Added `claude_code_self_hosted_runner_order_to_first_session_seconds` to the self-hosted runner's `/metrics`: seconds from work order to first session handed over, on runners started for a session
+> - Fixed Claude Code freezing for up to several minutes right after compacting a very long conversation
+> - Fixed WebFetch freezing the session for minutes on some pages, and returning an empty result for some others
+> - Fixed `ExitWorktree` and the worktree exit dialog deleting a worktree that another running Claude Code session was working in
+> - Fixed changes to user settings being lost when several Claude Code processes saved them at the same time
 
 **Ficheros potencialmente afectados:**
 - `examples/settings.json`
 - `guides/agents.md`
 - `guides/commands.md`
 - `guides/hooks.md`
+- `guides/memory.md`
 - `guides/rules.md`
 - `guides/settings.md`
 - `guides/skills.md`
